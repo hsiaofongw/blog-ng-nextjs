@@ -1,0 +1,23 @@
+h1, h2, h3 {
+  font-family: "Noto Sans SC Regular";
+  font-weight: initial;
+}
+
+html,
+body {
+  padding: 0px;
+  margin: 0px;
+  font-family: "Noto Sans SC Light";
+
+  display: grid;
+  grid-template-columns: 600px;
+  grid-template-rows: 1fr;
+  justify-content: center;
+  font-weight: initial;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
