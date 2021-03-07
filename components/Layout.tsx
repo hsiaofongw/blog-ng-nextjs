@@ -48,6 +48,7 @@ class Layout extends React.Component<ILayoutProps, {}> {
             <title>{pageName}</title>
             <meta charSet={this.props.blogBasicMetaData.charSet} />
             <meta name="description" content={this.props.blogBasicMetaData.description} />
+            <script async defer data-website-id="b8fb05b6-bf40-4246-85ee-faaddebc90fb" src="http://173.82.240.157:3000/umami.js"></script>
             <link rel="icon" href={avatar} />
         </Head>;
 
