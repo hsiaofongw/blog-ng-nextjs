@@ -1,13 +1,13 @@
 import Head from 'next/head'
 import React from "react";
-import styles from '../styles/Home.module.scss'
+import styles from '../styles/Public.module.scss'
 
-export async function getStaticProps() {
+export async function getStaticProps(): Promise<{ props: IHomeProps }> {
 
     const giteeUrl = "https://gitee.com/hsiaofongw/helloworld/raw/master";
-    let dataUrl = `${giteeUrl}/articles.json`;
-    let linkDataUrl = `${giteeUrl}/blog-global-navigation.json`;
-    let blogBasicMetaDataUrl = `${giteeUrl}/blog-basic-metadata.json`;
+    const dataUrl = `${giteeUrl}/articles.json`;
+    const linkDataUrl = `${giteeUrl}/blog-global-navigation.json`;
+    const blogBasicMetaDataUrl = `${giteeUrl}/blog-basic-metadata.json`;
     
     const postExcerptData = await fetch(dataUrl).then(d => d.json());
     const linkData = await fetch(linkDataUrl).then(d => d.json());
@@ -87,8 +87,8 @@ class Home extends React.Component<IHomeProps, {}> {
 
         return (
             <div className={styles.container}>
-                {titleElement}
                 {headElement}               
+                {titleElement}
                 {menuElement}
 
                 <main className={styles.main}>

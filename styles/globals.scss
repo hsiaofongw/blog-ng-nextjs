@@ -1,16 +1,27 @@
 h1, h2, h3 {
   font-family: "Noto Sans SC Regular";
   font-weight: initial;
+  color: inherit;
+}
+
+h1:hover {
+    cursor: default;
+}
+
+ul {
+  list-style-type: none;
 }
 
 html,
 body {
+  color: #586e75;
+
   padding: 0px;
   margin: 0px;
   font-family: "Noto Sans SC Light";
 
   display: grid;
-  grid-template-columns: 600px;
+  grid-template-columns: 700px;
   grid-template-rows: 1fr;
   justify-content: center;
   font-weight: initial;
@@ -20,4 +31,3 @@ a {
   color: inherit;
   text-decoration: none;
 }
-

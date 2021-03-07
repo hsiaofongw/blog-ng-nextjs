@@ -1,13 +1,14 @@
 import Head from 'next/head'
 import React from "react";
-import styles from '../../styles/About.module.scss'
+import styles from '../../styles/Public.module.scss'
 
-export async function getStaticProps() {
+
+export async function getStaticProps(): Promise< { props: IAboutProps } > {
 
     const giteeUrl = "https://gitee.com/hsiaofongw/helloworld/raw/master";
-    let dataUrl = `${giteeUrl}/abouts.json`;
-    let linkDataUrl = `${giteeUrl}/blog-global-navigation.json`;
-    let blogBasicMetaDataUrl = `${giteeUrl}/blog-basic-metadata.json`;
+    const dataUrl = `${giteeUrl}/abouts.json`;
+    const linkDataUrl = `${giteeUrl}/blog-global-navigation.json`;
+    const blogBasicMetaDataUrl = `${giteeUrl}/blog-basic-metadata.json`;
     
     const postExcerptData = await fetch(dataUrl).then(d => d.json());
     const linkData = await fetch(linkDataUrl).then(d => d.json());
@@ -70,16 +71,17 @@ class About extends React.Component<IAboutProps, {}> {
     }
 
     render() {
-        let headElement = <Head>
-            <title>{this.props.blogBasicMetaData.title}</title>
+        const pageName= `关于 | ${this.props.blogBasicMetaData.title}`;
+        const headElement = <Head>
+            <title>{pageName}</title>
             <meta charSet={this.props.blogBasicMetaData.charSet} />
             <meta name="description" content={this.props.blogBasicMetaData.description} />
             <link rel="icon" href="/favicon.ico" />
         </Head>;
 
-        let titleElement = <h1>{this.props.blogBasicMetaData.title}</h1>;
+        const titleElement = <h1>{"关于"}</h1>;
 
-        let menuElement = <Menu links={this.props.linkData} />;
+        const menuElement = <Menu links={this.props.linkData} />;
 
         const articles = this.props.postExcerptData;
         const articleElements = articles.map(a => <ArticleExcerpt key={a.file} {...a} />);
@@ -87,8 +89,8 @@ class About extends React.Component<IAboutProps, {}> {
 
         return (
             <div className={styles.container}>
-                {titleElement}
                 {headElement}               
+                {titleElement}
                 {menuElement}
 
                 <main className={styles.main}>

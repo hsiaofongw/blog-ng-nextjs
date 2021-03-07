@@ -16,6 +16,15 @@ interface ILinkData {
     experimental?: boolean;
 }
 
+interface ICardData {
+    title: string;
+    description: string;
+    avatar: string;
+    link: string;
+    addDate: string;
+    dateVerified?: string;
+}
+
 interface IMenuProps {
     links: ILinkData[];
 }
@@ -38,11 +47,13 @@ interface IAboutProps {
     blogBasicMetaData: IBlogBasicMetaData;
 }
 
-interface Card {
-    title: string;
-    description: string;
-    avatar: string;
-    link: string;
-    addDate?: string;
-    dateVerified?: string;
+interface IFriendProps {
+    cardData: ICardData[];
+    linkData: ILinkData[];
+    blogBasicMetaData: IBlogBasicMetaData;
+}
+
+interface IFriendState {
+    selected?: string;
+    cardIdxes: { [key: string]: ICardData | undefined }
 }
