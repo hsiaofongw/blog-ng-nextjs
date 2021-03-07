@@ -2,9 +2,33 @@ import Head from 'next/head'
 import React from "react";
 import styles from '../styles/Public.module.scss'
 
+class Menu extends React.Component<IMenuProps, {}> {
+
+    constructor(props: IMenuProps) {
+        super(props);
+    }
+
+    render() {
+        const linkElements = this.props.links.filter(l => !l.experimental).map(l => {
+            if (l.newTab) {
+                return <li key={l.link}><a href={l.link} target="_blank">{l.name}</a></li>;
+            }
+            else {
+                return <li key={l.link}><a href={l.link} >{l.name}</a></li>;
+            }
+        });
+
+        let menu = <nav className={styles.menu}><ul>{linkElements}</ul></nav>;
+
+        return menu;
+    }
+}
+
 class Layout extends React.Component<ILayoutProps, {}> {
 
     render() {
+        const menuElement = <Menu links={this.props.blogBasicMetaData.menu} />;
+
         let pageName = this.props.blogBasicMetaData.title;
         if (this.props.pageName) {
             pageName = this.props.pageName;
@@ -13,6 +37,11 @@ class Layout extends React.Component<ILayoutProps, {}> {
         let avatar = "/favicon.ico";
         if (this.props.blogBasicMetaData.avatar) {
             avatar = this.props.blogBasicMetaData.avatar;
+        }
+
+        let titleElement = undefined;
+        if (this.props.title) {
+            titleElement = <h1>{this.props.title}</h1>;
         }
 
         let headElement = <Head>
@@ -24,6 +53,8 @@ class Layout extends React.Component<ILayoutProps, {}> {
 
         return <div className={styles.container}>
             {headElement}
+            {titleElement}
+            {menuElement}
             {this.props.children}
         </div>;
     }

@@ -34,23 +34,21 @@ interface IBlogBasicMetaData {
     description: string;
     charSet: string;
     avatar?: string;
+    menu: ILinkData[];
 }
 
 interface IHomeProps {
     postExcerptData: IPostExcerptData[];
-    linkData: ILinkData[];
     blogBasicMetaData: IBlogBasicMetaData;
 }
 
 interface IAboutProps {
     postExcerptData: IPostExcerptData[];
-    linkData: ILinkData[];
     blogBasicMetaData: IBlogBasicMetaData;
 }
 
 interface IFriendProps {
     cardData: ICardData[];
-    linkData: ILinkData[];
     blogBasicMetaData: IBlogBasicMetaData;
 }
 
@@ -62,4 +60,5 @@ interface IFriendState {
 interface ILayoutProps {
     blogBasicMetaData: IBlogBasicMetaData;
     pageName?: string;
+    title?: string;
 }

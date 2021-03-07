@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import React from "react";
 import publicstyles from '../../styles/Public.module.scss'
 import styles from '../../styles/Friend.module.scss'
@@ -8,36 +7,12 @@ export async function getStaticProps(): Promise< { props: IFriendProps } > {
 
     const giteeUrl = "https://gitee.com/hsiaofongw/helloworld/raw/master";
     const dataUrl = `${giteeUrl}/cards.json`;
-    const linkDataUrl = `${giteeUrl}/blog-global-navigation.json`;
     const blogBasicMetaDataUrl = `${giteeUrl}/blog-basic-metadata.json`;
     
     const cardData = await fetch(dataUrl).then(d => d.json());
-    const linkData = await fetch(linkDataUrl).then(d => d.json());
     const blogBasicMetaData = await fetch(blogBasicMetaDataUrl).then(d => d.json());
 
-    return { props: { cardData, linkData, blogBasicMetaData }};
-}
-
-class Menu extends React.Component<IMenuProps, {}> {
-
-    constructor(props: IMenuProps) {
-        super(props);
-    }
-
-    render() {
-        const linkElements = this.props.links.filter(l => !l.experimental).map(l => {
-            if (l.newTab) {
-                return <li key={l.link}><a href={l.link} target="_blank">{l.name}</a></li>;
-            }
-            else {
-                return <li key={l.link}><a href={l.link} >{l.name}</a></li>;
-            }
-        });
-
-        let menu = <nav className={styles.menu}><ul>{linkElements}</ul></nav>;
-
-        return menu;
-    }
+    return { props: { cardData, blogBasicMetaData }};
 }
 
 class CardDetail extends React.Component<ICardData, {}> {
@@ -46,7 +21,6 @@ class CardDetail extends React.Component<ICardData, {}> {
         const description = this.props.description;
         const addDate = this.props.addDate;
         const link = this.props.link;
-        const avatar = this.props.avatar;
 
         return <ul className={publicstyles.articlelist}><li>
             <a href={link} target="_blank">
@@ -147,9 +121,7 @@ class Friend extends React.Component<IFriendProps, IFriendState> {
 
     render() {
         const pageName= `友链 | ${this.props.blogBasicMetaData.title}`;
-
-        const titleElement = <h1>{"友链"}</h1>;
-        const menuElement = <Menu links={this.props.linkData} />;
+        
         const avatars = <Avatars unselect={() => this.unselect()} hasSelected={link => this.hasSelected(link)} cards={this.props.cardData} />;
 
         let detail = undefined;
@@ -160,9 +132,7 @@ class Friend extends React.Component<IFriendProps, IFriendState> {
             }
         }
 
-        return <Layout pageName={pageName} blogBasicMetaData={this.props.blogBasicMetaData} >
-            {titleElement}
-            {menuElement}
+        return <Layout title="友链" pageName={pageName} blogBasicMetaData={this.props.blogBasicMetaData} >
             <main className={styles.main}>
                 {avatars}
                 {detail}
