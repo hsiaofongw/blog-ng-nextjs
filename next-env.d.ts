@@ -33,6 +33,7 @@ interface IBlogBasicMetaData {
     title: string;
     description: string;
     charSet: string;
+    avatar?: string;
 }
 
 interface IHomeProps {

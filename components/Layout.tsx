@@ -10,11 +10,16 @@ class Layout extends React.Component<ILayoutProps, {}> {
             pageName = this.props.pageName;
         }
 
+        let avatar = "/favicon.ico";
+        if (this.props.blogBasicMetaData.avatar) {
+            avatar = this.props.blogBasicMetaData.avatar;
+        }
+
         let headElement = <Head>
             <title>{pageName}</title>
             <meta charSet={this.props.blogBasicMetaData.charSet} />
             <meta name="description" content={this.props.blogBasicMetaData.description} />
-            <link rel="icon" href="/favicon.ico" />
+            <link rel="icon" href={avatar} />
         </Head>;
 
         return <div className={styles.container}>
