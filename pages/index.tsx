@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import React from "react";
 import styles from '../styles/Public.module.scss'
+import Layout from '../components/Layout';
 
 export async function getStaticProps(): Promise<{ props: IHomeProps }> {
 
@@ -69,34 +70,19 @@ class Home extends React.Component<IHomeProps, {}> {
     }
 
     render() {
-        let headElement = <Head>
-            <title>{this.props.blogBasicMetaData.title}</title>
-            <meta charSet={this.props.blogBasicMetaData.charSet} />
-            <meta name="description" content={this.props.blogBasicMetaData.description} />
-            <link rel="icon" href="/favicon.ico" />
-        </Head>;
-
-        let titleElement = <h1>{this.props.blogBasicMetaData.title}</h1>;
-
-        let menuElement = <Menu links={this.props.linkData} />;
-
+        const titleElement = <h1>{this.props.blogBasicMetaData.title}</h1>;
+        const menuElement = <Menu links={this.props.linkData} />;
         const articles = this.props.postExcerptData;
         const articleElements = articles.map(a => <ArticleExcerpt key={a.file} {...a} />);
         const articlesListElement = <ArticleExcerptList>{articleElements}</ArticleExcerptList>
 
-        return (
-            <div className={styles.container}>
-                {headElement}               
-                {titleElement}
-                {menuElement}
-
-                <main className={styles.main}>
-                    {articlesListElement}
-                </main>
-
-                <footer className={styles.footer}></footer>
-            </div>
-        );
+        return <Layout pageName={this.props.blogBasicMetaData.title} blogBasicMetaData={this.props.blogBasicMetaData}>
+            {titleElement}
+            {menuElement}
+            <main className={styles.main}>
+                {articlesListElement}
+            </main>
+        </Layout>;
     }
 
 }

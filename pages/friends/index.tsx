@@ -2,6 +2,7 @@ import Head from 'next/head'
 import React from "react";
 import publicstyles from '../../styles/Public.module.scss'
 import styles from '../../styles/Friend.module.scss'
+import Layout from '../../components/Layout';
 
 export async function getStaticProps(): Promise< { props: IFriendProps } > {
 
@@ -146,12 +147,6 @@ class Friend extends React.Component<IFriendProps, IFriendState> {
 
     render() {
         const pageName= `友链 | ${this.props.blogBasicMetaData.title}`;
-        const headElement = <Head>
-            <title>{pageName}</title>
-            <meta charSet={this.props.blogBasicMetaData.charSet} />
-            <meta name="description" content={this.props.blogBasicMetaData.description} />
-            <link rel="icon" href="/favicon.ico" />
-        </Head>;
 
         const titleElement = <h1>{"友链"}</h1>;
         const menuElement = <Menu links={this.props.linkData} />;
@@ -165,20 +160,14 @@ class Friend extends React.Component<IFriendProps, IFriendState> {
             }
         }
 
-        return (
-            <div className={styles.container}>
-                {headElement}               
-                {titleElement}
-                {menuElement}
-
-                <main className={styles.main}>
+        return <Layout pageName={pageName} blogBasicMetaData={this.props.blogBasicMetaData} >
+            {titleElement}
+            {menuElement}
+            <main className={styles.main}>
                 {avatars}
                 {detail}
-                </main>
-
-                <footer className={styles.footer}></footer>
-            </div>
-        );
+            </main>
+        </Layout>;
     }
 
 }

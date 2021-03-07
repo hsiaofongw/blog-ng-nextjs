@@ -1,7 +1,7 @@
-import Head from 'next/head'
+import Head from 'next/head';
 import React from "react";
-import styles from '../../styles/Public.module.scss'
-
+import styles from '../../styles/Public.module.scss';
+import Layout from '../../components/Layout';
 
 export async function getStaticProps(): Promise< { props: IAboutProps } > {
 
@@ -86,19 +86,13 @@ class About extends React.Component<IAboutProps, {}> {
         const articleElements = articles.map(a => <ArticleExcerpt key={a.file} {...a} />);
         const articlesListElement = <ArticleExcerptList>{articleElements}</ArticleExcerptList>
 
-        return (
-            <div className={styles.container}>
-                {headElement}               
-                {titleElement}
-                {menuElement}
-
-                <main className={styles.main}>
-                    {articlesListElement}
-                </main>
-
-                <footer className={styles.footer}></footer>
-            </div>
-        );
+        return <Layout pageName={pageName} blogBasicMetaData={this.props.blogBasicMetaData} >
+            {titleElement}
+            {menuElement}
+            <main className={styles.main}>
+                {articlesListElement}
+            </main>
+        </Layout>
     }
 
 }

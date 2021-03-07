@@ -57,3 +57,8 @@ interface IFriendState {
     selected?: string;
     cardIdxes: { [key: string]: ICardData | undefined }
 }
+
+interface ILayoutProps {
+    blogBasicMetaData: IBlogBasicMetaData;
+    pageName?: string;
+}
