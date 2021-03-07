@@ -67,7 +67,6 @@ class About extends React.Component<IAboutProps, {}> {
 
     constructor(props: IAboutProps) {
         super(props);
-        console.log(props);
     }
 
     render() {

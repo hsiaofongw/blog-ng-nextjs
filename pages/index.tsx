@@ -66,7 +66,6 @@ class Home extends React.Component<IHomeProps, {}> {
 
     constructor(props: IHomeProps) {
         super(props);
-        console.log(props);
     }
 
     render() {
