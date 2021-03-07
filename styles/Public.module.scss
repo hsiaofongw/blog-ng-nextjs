@@ -21,6 +21,7 @@
 }
 
 
+
 $big-margin: 36px;
 $small-margin: 12px;
 
@@ -31,19 +32,22 @@ $small-margin: 12px;
     padding-left: 0px;
     padding-right: 0px;
 
-    display: grid;
-    grid-template-columns: 1fr;
-    row-gap: $big-margin;
+    @media (min-width: 700px) {
 
-    li {
-        a {
-            display: grid;
-            grid-template-columns: 1fr;
-            row-gap: $small-margin;
-            align-items: center;
+        display: grid;
+        grid-template-columns: 1fr;
+        row-gap: $big-margin;
 
-            & > * {
-                margin: 0px;
+        li {
+            a {
+                display: grid;
+                grid-template-columns: 1fr;
+                row-gap: $small-margin;
+                align-items: center;
+
+                & > * {
+                    margin: 0px;
+                }
             }
         }
     }
@@ -54,3 +58,4 @@ $small-margin: 12px;
         outline-width: 2px;
     }
 }
+
