@@ -12,8 +12,20 @@ export async function getStaticProps() {
 }
 
 function avatarSimplify(link: string) {
-    const apiEndPoint = "https://websitepreview.vercel.app";
+    const apiEndPoint = "https://webimagecache.vercel.app";
     const apiPath = "/api/avatar";
+
+    let url = new URL(`${apiEndPoint}${apiPath}`);
+    url.searchParams.append("link", link);
+
+    return url.toString();
+}
+
+function getPreviewURL(link: string) {
+    // const apiEndPoint = "https://websitepreview.vercel.app";
+    // const apiEndPoint = "http://localhost:3001";
+    const apiEndPoint = "https://webimagecache.exploro.one";
+    const apiPath = "/api/preview";
 
     let url = new URL(`${apiEndPoint}${apiPath}`);
     url.searchParams.append("link", link);
@@ -27,14 +39,18 @@ class CardDetail extends React.Component<ICardData, {}> {
         const description = this.props.description;
         const addDate = this.props.addDate;
         const link = this.props.link;
+        const previewLink = getPreviewURL(link);
 
-        return <ul className={publicstyles.articlelist}><li>
-            <a href={link} target="_blank">
-                <h2>{title}</h2>
-                <div className={styles.description}>{description}</div>
-                <time dateTime={addDate} >{addDate+" 添加"}</time>
-            </a>
-        </li></ul>;
+        const preview = <img src={previewLink} height={100} />;
+
+        return <div className={styles.carddetailcontainer} >
+            <div className={styles.carddetail}>
+            <h2>{title}</h2>
+            <div className={styles.description}>{description}</div>
+            <time dateTime={addDate} >{addDate+" 添加"}</time>
+            </div>
+            {preview}
+        </div>;
 
     }
 }
@@ -140,10 +156,13 @@ class Friend extends React.Component<IFriendProps, IFriendState> {
             }
         }
 
+        let testCard = <CardDetail {...this.props.cardData[0]} />;
+
         return <Layout title="友链" pageName={pageName} blogBasicMetaData={this.props.blogBasicMetaData} >
             <main className={styles.main}>
                 {avatars}
                 {detail}
+                {/* {testCard} */}
             </main>
         </Layout>;
     }
