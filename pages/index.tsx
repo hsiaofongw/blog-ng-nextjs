@@ -38,14 +38,37 @@ class ArticleExcerpt extends React.Component<IPostExcerptData, {}> {
     }
 }
 
-class Home extends React.Component<IHomeProps, {}> {
+class Home extends React.Component<IHomeProps, IHomeState> {
 
     constructor(props: IHomeProps) {
         super(props);
+
+        this.state = {
+            "postExcerptData": []
+        };
+    }
+
+    componentDidMount() {
+        const staticEndPoint = "https://static.exploro.one/pdf";
+        const legacySiteEndPoint = "https://beyondstars.xyz";
+        const pdfSuffix = ".pdf";
+
+        let articles = this.props.postExcerptData;
+        for (let a of articles) {
+            a["prettyPath"] = a["file"]
+                .replace(staticEndPoint, "/posts")
+                .replace(legacySiteEndPoint, "")
+                .replace(pdfSuffix, "/");
+        }
+
+        this.setState({
+            "postExcerptData": articles
+        });
     }
 
     render() {
-        const articles = this.props.postExcerptData;
+        const articles = this.state.postExcerptData;
+
         const articleElements = articles.map(a => <ArticleExcerpt key={a.file} {...a} />);
         const articlesListElement = <ArticleExcerptList>{articleElements}</ArticleExcerptList>
 

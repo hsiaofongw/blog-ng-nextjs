@@ -7,6 +7,7 @@ interface IPostExcerptData {
     file: string;
     date: string;
     description?: string;
+    prettyPath?: string;
 }
 
 interface ILinkData {
@@ -42,6 +43,10 @@ interface IHomeProps {
     blogBasicMetaData: IBlogBasicMetaData;
 }
 
+interface IHomeState {
+    postExcerptData: IPostExcerptData[];
+}
+
 interface IAboutProps {
     postExcerptData: IPostExcerptData[];
     blogBasicMetaData: IBlogBasicMetaData;
@@ -61,4 +66,9 @@ interface ILayoutProps {
     blogBasicMetaData: IBlogBasicMetaData;
     pageName?: string;
     title?: string;
+}
+
+interface IPostURLRewriteRoute {
+    source: string;
+    destination: string;
 }
