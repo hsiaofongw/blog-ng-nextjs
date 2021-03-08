@@ -9,13 +9,7 @@ async function rewrites() {
     console.log("rewrite routes:");
     console.log(routes);
 
-    if (routes) {
-        if (routes.length) {
-            return routes;
-        }
-    }
-
-    return [];
+    return routes;
 }
 
 module.exports = {
