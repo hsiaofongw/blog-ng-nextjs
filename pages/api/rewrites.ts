@@ -14,10 +14,13 @@ function createRewriteRule(data: IPostExcerptData[]): [IPostExcerptData[], IPost
             .replace(legacySiteEndPoint, "")
             .replace(pdfSuffix, "/");
         
-        const source = a["prettyPath"] as string;
-        const destination = a["file"];
+        let source = a["prettyPath"] as string;
+        let destination = a["file"];
 
-        routes.push({source, destination} as IPostURLRewriteRoute);
+        routes.push({ source, destination} as IPostURLRewriteRoute);
+
+        source = source.substr(0, source.length-1);
+        routes.push({ source, destination } as IPostURLRewriteRoute);
     }
 
     return [data, routes];
