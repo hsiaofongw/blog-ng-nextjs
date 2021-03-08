@@ -11,6 +11,16 @@ export async function getStaticProps() {
     return { props: { cardData, blogBasicMetaData }};
 }
 
+function avatarSimplify(link: string) {
+    const apiEndPoint = "https://websitepreview.vercel.app";
+    const apiPath = "/api/avatar";
+
+    let url = new URL(`${apiEndPoint}${apiPath}`);
+    url.searchParams.append("link", link);
+
+    return url.toString();
+}
+
 class CardDetail extends React.Component<ICardData, {}> {
     render() {
         const title = this.props.title;
@@ -62,6 +72,8 @@ class Avatars extends React.Component<{ cards: ICardData[], hasSelected: (link: 
                 }
             }
 
+            const avatar = avatarSimplify(card.avatar);
+
             return <a 
                 className={cName}
                 key={card.link} 
@@ -69,7 +81,7 @@ class Avatars extends React.Component<{ cards: ICardData[], hasSelected: (link: 
                 onMouseOver={e => this.onMouseOver(card.link)}
                 onMouseLeave={e => this.onMouseLeave()}
             >
-                <img className={styles.avatar} src={card.avatar} alt="avatar" />
+                <img className={styles.avatar} src={avatar} alt="avatar" />
             </a>;
         });
 

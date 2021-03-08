@@ -1,8 +1,8 @@
 const giteeUrl = "https://gitee.com/hsiaofongw/helloworld/raw/master";
 const githubUrl = "https://github.com/hsiaofongw/blog-data/raw/master";
 
-const resourceUrl = githubUrl;
-// const resourceUrl = giteeUrl;
+// const resourceUrl = githubUrl;
+const resourceUrl = giteeUrl;
 
 export async function getDataForHomePage(): Promise<[ IPostExcerptData[], IBlogBasicMetaData ]> {
 
