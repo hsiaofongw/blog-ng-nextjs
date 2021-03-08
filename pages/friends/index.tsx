@@ -2,15 +2,11 @@ import React from "react";
 import publicstyles from '../../styles/Public.module.scss'
 import styles from '../../styles/Friend.module.scss'
 import Layout from '../../components/Layout';
+import { getDataForFriendPage } from '../../helpers/blogDataDto';
 
-export async function getStaticProps(): Promise< { props: IFriendProps } > {
+export async function getStaticProps() {
 
-    const giteeUrl = "https://gitee.com/hsiaofongw/helloworld/raw/master";
-    const dataUrl = `${giteeUrl}/cards.json`;
-    const blogBasicMetaDataUrl = `${giteeUrl}/blog-basic-metadata.json`;
-    
-    const cardData = await fetch(dataUrl).then(d => d.json());
-    const blogBasicMetaData = await fetch(blogBasicMetaDataUrl).then(d => d.json());
+    const [cardData, blogBasicMetaData] = await getDataForFriendPage();
 
     return { props: { cardData, blogBasicMetaData }};
 }

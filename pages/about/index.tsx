@@ -1,15 +1,11 @@
 import React from "react";
 import styles from '../../styles/Public.module.scss';
 import Layout from '../../components/Layout';
+import { getDataForAboutPage } from '../../helpers/blogDataDto';
 
 export async function getStaticProps(): Promise< { props: IAboutProps } > {
 
-    const giteeUrl = "https://gitee.com/hsiaofongw/helloworld/raw/master";
-    const dataUrl = `${giteeUrl}/abouts.json`;
-    const blogBasicMetaDataUrl = `${giteeUrl}/blog-basic-metadata.json`;
-    
-    const postExcerptData = await fetch(dataUrl).then(d => d.json());
-    const blogBasicMetaData = await fetch(blogBasicMetaDataUrl).then(d => d.json());
+    const [postExcerptData, blogBasicMetaData] = await getDataForAboutPage();
 
     return { props: { postExcerptData, blogBasicMetaData }};
 }
