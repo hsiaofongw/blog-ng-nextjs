@@ -44,7 +44,7 @@ class CardDetail extends React.Component<ICardData, {}> {
         // const preview = <img src={previewLink} height={100} />;
         const preview = undefined;
 
-        return <div className={styles.carddetailcontainer} >
+        return <div key={link} className={styles.carddetailcontainer} >
             <div className={styles.carddetail}>
             <h2>{title}</h2>
             <div className={styles.description}>{description}</div>
@@ -63,7 +63,8 @@ class Avatars extends React.Component<{ cards: ICardData[], hasSelected: (link: 
 
         this.state = {
             "selected": undefined,
-            "cardIdxes": {}
+            "cardIdxes": {},
+            "cards": []
         };
     }
 
@@ -116,20 +117,40 @@ class Friend extends React.Component<IFriendProps, IFriendState> {
 
         this.state = {
             "selected": undefined,
-            "cardIdxes": {}
+            "cardIdxes": {},
+            "cards": []
         };
     }
 
     componentDidMount() {
-        const cards = this.props.cardData;
+        let cards = this.props.cardData;
+        this.shuffle(cards);
+
         let cardIdx: { [key: string]: ICardData | undefined } = {};
         for (const card of cards) {
             const key = card.link;
             cardIdx[key] = card;
         }
         this.setState({
-            "cardIdxes": cardIdx
+            "cardIdxes": cardIdx,
+            "cards": cards
         });
+    }
+
+    getRandomIntInclusive(min: number, max: number) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
+    }
+
+    shuffle(cards: ICardData[]) {
+        const n = cards.length;
+        for (let i = 0; i < n; i++) {
+            const choose = this.getRandomIntInclusive(i, n-1);
+            const temp = cards[i];
+            cards[i] = cards[choose];
+            cards[choose] = temp;
+        }
     }
 
     hasSelected(link: string) {
@@ -146,8 +167,9 @@ class Friend extends React.Component<IFriendProps, IFriendState> {
 
     render() {
         const pageName= `友链 | ${this.props.blogBasicMetaData.title}`;
+        const cards = this.state.cards;
         
-        const avatars = <Avatars unselect={() => this.unselect()} hasSelected={link => this.hasSelected(link)} cards={this.props.cardData} />;
+        const avatars = <Avatars unselect={() => this.unselect()} hasSelected={link => this.hasSelected(link)} cards={cards} />;
 
         let detail = undefined;
         if (this.state.selected) {
@@ -157,13 +179,15 @@ class Friend extends React.Component<IFriendProps, IFriendState> {
             }
         }
 
-        let testCard = <CardDetail {...this.props.cardData[0]} />;
+        let detailList = <div>
+            {cards.map(x => <CardDetail {...x} />)}
+        </div>;
 
         return <Layout title="友链" pageName={pageName} blogBasicMetaData={this.props.blogBasicMetaData} >
             <main className={styles.main}>
                 {avatars}
                 {detail}
-                {/* {testCard} */}
+                {detailList}
             </main>
         </Layout>;
     }
