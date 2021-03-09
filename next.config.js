@@ -21,6 +21,11 @@ async function rewrites() {
     });
 
     routes.push({
+        "source": "/:resourcefile(\[^\.]+\.gv\.svg)",
+        "destination": "https://beyondstars.xyz/:resourcefile"
+    });
+
+    routes.push({
         "source": "/css/:cssfile",
         "destination": "https://beyondstars.xyz/css/:cssfile"
     });
