@@ -1,41 +1,41 @@
-// async function rewrites() {
+async function rewrites() {
 
-//     const testApiEndPoint =  "https://exploro-git-test-hsiaofongw.vercel.app";
-//     const mainEndPoint = "https://exploro.vercel.app";
+    const testApiEndPoint =  "https://exploro-git-test-hsiaofongw.vercel.app";
+    const mainEndPoint = "https://exploro.vercel.app";
 
-//     const apiEndPoint = testApiEndPoint;
+    const apiEndPoint = testApiEndPoint;
 
-//     const apiPath = "/api/rewrites";
-//     const fullURI = `${apiEndPoint}${apiPath}`;
+    const apiPath = "/api/rewrites";
+    const fullURI = `${apiEndPoint}${apiPath}`;
 
-//     let routes = await fetch(fullURI).then(d => d.json());
+    let routes = await fetch(fullURI).then(d => d.json());
 
-//     routes.push({
-//         "source": "/:slug/:resourcefile(\[^\.]+\.[a-z0-0A-Z]{1,})",
-//         "destination": "https://beyondstars.xyz/:slug/:resourcefile"
-//     });
+    routes.push({
+        "source": "/:slug/:resourcefile(\[^\.]+\.[a-z0-0A-Z]{1,})",
+        "destination": "https://beyondstars.xyz/:slug/:resourcefile"
+    });
 
-//     routes.push({
-//         "source": "/:resourcefile(\[^\.]+\.[a-z0-0A-Z]{1,})",
-//         "destination": "https://beyondstars.xyz/:resourcefile"
-//     });
+    routes.push({
+        "source": "/:resourcefile(\[^\.]+\.[a-z0-0A-Z]{1,})",
+        "destination": "https://beyondstars.xyz/:resourcefile"
+    });
 
-//     routes.push({
-//         "source": "/css/:cssfile",
-//         "destination": "https://beyondstars.xyz/css/:cssfile"
-//     });
+    routes.push({
+        "source": "/css/:cssfile",
+        "destination": "https://beyondstars.xyz/css/:cssfile"
+    });
 
-//     routes.push({
-//         "source": "/favicon.png",
-//         "destination": "https://beyondstars.xyz/favicon.png"
-//     });
+    routes.push({
+        "source": "/favicon.png",
+        "destination": "https://beyondstars.xyz/favicon.png"
+    });
 
-//     // console.log("rewrite routes:");
-//     // console.log(routes);
+    // console.log("rewrite routes:");
+    // console.log(routes);
 
-//     return routes;
-// }
+    return routes;
+}
 
-// module.exports = {
-//     rewrites 
-// }
+module.exports = {
+    rewrites 
+}
