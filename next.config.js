@@ -42,5 +42,5 @@ async function rewrites() {
 }
 
 module.exports = {
-    rewrites, headers
+    rewrites
 }
