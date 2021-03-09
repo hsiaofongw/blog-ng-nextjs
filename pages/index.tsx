@@ -86,7 +86,7 @@ class Home extends React.Component<IHomeProps, IHomeState> {
 
         let articles = this.props.postExcerptData;
 
-        const tickPeriod =  20000;
+        const tickPeriod =  30000;
         const timer = window.setInterval(() => this.tick(), tickPeriod);
 
         this.setState({
