@@ -41,7 +41,8 @@ class CardDetail extends React.Component<ICardData, {}> {
         const link = this.props.link;
         const previewLink = getPreviewURL(link);
 
-        const preview = <img src={previewLink} height={100} />;
+        // const preview = <img src={previewLink} height={100} />;
+        const preview = undefined;
 
         return <div className={styles.carddetailcontainer} >
             <div className={styles.carddetail}>
