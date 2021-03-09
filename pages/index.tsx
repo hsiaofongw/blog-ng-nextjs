@@ -59,7 +59,7 @@ class Home extends React.Component<IHomeProps, IHomeState> {
                 .replace(pdfSuffix, "/");
         }
 
-        const tickPeriod =  10000;
+        const tickPeriod =  20000;
         const timer = window.setInterval(() => this.tick(), tickPeriod);
 
         this.setState({
@@ -69,7 +69,25 @@ class Home extends React.Component<IHomeProps, IHomeState> {
     }
 
     tick() {
-        getArticles().then(d => console.log(d));
+        let newArticles: IPostExcerptData[] = [];
+
+        getArticles().then(d => {
+            for (const article of d) {
+                const key = article.file;
+                if (key in this.state.postExcerptData) {
+                    ;
+                }
+                else {
+                    console.log("Found new article:");
+                    console.log(article);
+                    newArticles.push(article);
+                }
+            }
+        });
+
+        this.setState({
+            "postExcerptData": this.state.postExcerptData.concat(newArticles)
+        }, () => console.log("All updates applied."));
     }
 
     componentWillUnmount() {
