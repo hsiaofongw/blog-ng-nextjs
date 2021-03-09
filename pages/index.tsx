@@ -2,7 +2,7 @@ import React from "react";
 import styles from '../styles/Public.module.scss'
 import Layout from '../components/Layout';
 import { getDataForHomePage } from '../helpers/blogDataDto';
-import { getArticles } from '../helpers/blogDataDto';
+import { getArticlesMock } from '../helpers/blogDataDto';
 
 export async function getStaticProps(): Promise<{ props: IHomeProps }> {
 
@@ -60,56 +60,49 @@ class Home extends React.Component<IHomeProps, IHomeState> {
         }
     }
 
-    createIndices(articles: IPostExcerptData[]) {
-        let articleIndices = this.state.articleIndices;
-        for (const a of articles) {
+    addArticles(arrivedArticles: IPostExcerptData[]) {
+        let indices = this.state.articleIndices;
+        let articles = this.state.postExcerptData;
+
+        let receivedArticles: IPostExcerptData[] = []
+        for (const a of arrivedArticles) {
             const key = a.file;
-            articleIndices.add(key);
+            if (!indices.has(key)) {
+                indices.add(key);
+                receivedArticles.push(a);
+            }
         }
 
+        console.log("received:");
+        console.log(receivedArticles);
+
+        this.makePrettyUrls(receivedArticles);
+        articles = receivedArticles.concat(articles);
+
         this.setState({
-            "articleIndices": articleIndices
-        });
+            "articleIndices": indices,
+            "postExcerptData": articles
+        }, () => console.log(this.state));
     }
 
     componentDidMount() {
 
         let articles = this.props.postExcerptData;
-        this.makePrettyUrls(articles);
-
-        this.createIndices(articles);
 
         const tickPeriod =  20000;
         const timer = window.setInterval(() => this.tick(), tickPeriod);
 
         this.setState({
-            "postExcerptData": articles,
             "timer": timer
+        }, () => {
+            this.addArticles(articles);
         });
     }
 
     tick() {
-        let newArticles: IPostExcerptData[] = [];
-
-        getArticles().then(d => {
-            for (const article of d) {
-                const key = article.file;
-                if (this.state.articleIndices.has(key)) {
-                    ;
-                }
-                else {
-                    console.log("Found new article:");
-                    console.log(article);
-                    newArticles.push(article);
-                }
-            }
+        getArticlesMock().then(d => {
+            this.addArticles(d);
         });
-
-        this.createIndices(newArticles);
-
-        this.setState({
-            "postExcerptData": this.state.postExcerptData.concat(newArticles)
-        }, () => console.log("All updates applied."));
     }
 
     componentWillUnmount() {

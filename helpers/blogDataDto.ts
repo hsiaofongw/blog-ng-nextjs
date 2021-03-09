@@ -1,5 +1,12 @@
 const resourceUrl = "https://blog-data-nextjs.vercel.app/api"
 
+export async function getArticlesMock(): Promise<IPostExcerptData[]> {
+    const dataUrl = `${resourceUrl}/hot-release`;
+    const postExcerptData = await fetch(dataUrl).then(d => d.json()) as IPostExcerptData[];
+    
+    return postExcerptData;
+}
+
 export async function getArticles(): Promise<IPostExcerptData[]> {
     const dataUrl = `${resourceUrl}/articles`;
     const postExcerptData = await fetch(dataUrl).then(d => d.json()) as IPostExcerptData[];
