@@ -30,8 +30,8 @@ async function rewrites() {
         "destination": "https://beyondstars.xyz/favicon.png"
     });
 
-    console.log("rewrite routes:");
-    console.log(routes);
+    // console.log("rewrite routes:");
+    // console.log(routes);
 
     return routes;
 }
