@@ -23,8 +23,10 @@ interface ICardData {
     avatar: string;
     link: string;
     addDate: string;
-    dateVerified?: string;
+    dateVerified?: boolean;
+    dateVerifiedBy?: string;
 }
+
 
 interface IMenuProps {
     links: ILinkData[];

@@ -56,8 +56,18 @@ $avatar-width: 60px;
     row-gap: 12px;
     display: grid;
     grid-template-columns: 1fr;
+    // background-color: white;
+    // opacity: 1;
 
     * {
         margin: 0px
+    }
+
+    &:hover {
+        cursor: pointer;
+
+        // opacity: 0;
+
+        // transition: opacity 4s;
     }
 }

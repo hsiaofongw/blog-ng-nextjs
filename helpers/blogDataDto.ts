@@ -1,13 +1,16 @@
-const giteeUrl = "https://gitee.com/hsiaofongw/helloworld/raw/master";
-const githubUrl = "https://github.com/hsiaofongw/blog-data/raw/master";
+const resourceUrl = "https://blog-data-nextjs.vercel.app/api"
 
-const resourceUrl = githubUrl;
-// const resourceUrl = giteeUrl;
+export async function getArticles(): Promise<IPostExcerptData[]> {
+    const dataUrl = `${resourceUrl}/articles`;
+    const postExcerptData = await fetch(dataUrl).then(d => d.json()) as IPostExcerptData[];
+    
+    return postExcerptData;
+}
 
 export async function getDataForHomePage(): Promise<[ IPostExcerptData[], IBlogBasicMetaData ]> {
 
-    const dataUrl = `${resourceUrl}/articles.json`;
-    const blogBasicMetaDataUrl = `${resourceUrl}/blog-basic-metadata.json`;
+    const dataUrl = `${resourceUrl}/articles`;
+    const blogBasicMetaDataUrl = `${resourceUrl}/blog-basic-metadata`;
 
     const postExcerptData = await fetch(dataUrl).then(d => d.json()) as IPostExcerptData[];
     const blogBasicMetaData = await fetch(blogBasicMetaDataUrl).then(d => d.json()) as IBlogBasicMetaData;
@@ -17,8 +20,8 @@ export async function getDataForHomePage(): Promise<[ IPostExcerptData[], IBlogB
 
 export async function getDataForAboutPage(): Promise< [ IPostExcerptData[], IBlogBasicMetaData ] > {
 
-    const dataUrl = `${resourceUrl}/abouts.json`;
-    const blogBasicMetaDataUrl = `${resourceUrl}/blog-basic-metadata.json`;
+    const dataUrl = `${resourceUrl}/abouts`;
+    const blogBasicMetaDataUrl = `${resourceUrl}/blog-basic-metadata`;
     
     const postExcerptData = await fetch(dataUrl).then(d => d.json()) as IPostExcerptData[];
     const blogBasicMetaData = await fetch(blogBasicMetaDataUrl).then(d => d.json()) as IBlogBasicMetaData;
@@ -28,8 +31,8 @@ export async function getDataForAboutPage(): Promise< [ IPostExcerptData[], IBlo
 
 export async function getDataForFriendPage(): Promise< [ ICardData[], IBlogBasicMetaData ] > {
 
-    const dataUrl = `${resourceUrl}/cards.json`;
-    const blogBasicMetaDataUrl = `${resourceUrl}/blog-basic-metadata.json`;
+    const dataUrl = `${resourceUrl}/cards`;
+    const blogBasicMetaDataUrl = `${resourceUrl}/blog-basic-metadata`;
     
     const cardData = await fetch(dataUrl).then(d => d.json()) as ICardData[];
     const blogBasicMetaData = await fetch(blogBasicMetaDataUrl).then(d => d.json()) as IBlogBasicMetaData;

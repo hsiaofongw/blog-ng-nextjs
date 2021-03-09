@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { getArticles } from '../../helpers/blogDataDto';
 
 function createRewriteRule(data: IPostExcerptData[]): [IPostExcerptData[], IPostURLRewriteRoute[]] {
     
@@ -28,9 +29,7 @@ function createRewriteRule(data: IPostExcerptData[]): [IPostExcerptData[], IPost
 
 async function rewrites() {
 
-    const giteeUrl = "https://gitee.com/hsiaofongw/helloworld/raw/master";
-    const dataUrl = `${giteeUrl}/articles.json`;
-    let data = await fetch(dataUrl).then(d => d.json()) as IPostExcerptData[];
+    let data = await getArticles();
     let routes: IPostURLRewriteRoute[] = [];
     [data, routes] = createRewriteRule(data);
 
