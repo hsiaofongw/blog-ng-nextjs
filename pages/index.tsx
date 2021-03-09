@@ -2,7 +2,7 @@ import React from "react";
 import styles from '../styles/Public.module.scss'
 import Layout from '../components/Layout';
 import { getDataForHomePage } from '../helpers/blogDataDto';
-import { getArticlesMock } from '../helpers/blogDataDto';
+import { getArticles } from '../helpers/blogDataDto';
 
 export async function getStaticProps(): Promise<{ props: IHomeProps }> {
 
@@ -73,16 +73,13 @@ class Home extends React.Component<IHomeProps, IHomeState> {
             }
         }
 
-        console.log("received:");
-        console.log(receivedArticles);
-
         this.makePrettyUrls(receivedArticles);
         articles = receivedArticles.concat(articles);
 
         this.setState({
             "articleIndices": indices,
             "postExcerptData": articles
-        }, () => console.log(this.state));
+        });
     }
 
     componentDidMount() {
@@ -100,7 +97,7 @@ class Home extends React.Component<IHomeProps, IHomeState> {
     }
 
     tick() {
-        getArticlesMock().then(d => {
+        getArticles().then(d => {
             this.addArticles(d);
         });
     }
