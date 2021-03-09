@@ -2,6 +2,7 @@ import React from "react";
 import styles from '../styles/Public.module.scss'
 import Layout from '../components/Layout';
 import { getDataForHomePage } from '../helpers/blogDataDto';
+import { getArticles } from '../helpers/blogDataDto';
 
 export async function getStaticProps(): Promise<{ props: IHomeProps }> {
 
@@ -40,7 +41,8 @@ class Home extends React.Component<IHomeProps, IHomeState> {
         super(props);
 
         this.state = {
-            "postExcerptData": []
+            "postExcerptData": [],
+            "timer": undefined
         };
     }
 
@@ -57,9 +59,23 @@ class Home extends React.Component<IHomeProps, IHomeState> {
                 .replace(pdfSuffix, "/");
         }
 
+        const tickPeriod =  10000;
+        const timer = window.setInterval(() => this.tick(), tickPeriod);
+
         this.setState({
-            "postExcerptData": articles
+            "postExcerptData": articles,
+            "timer": timer
         });
+    }
+
+    tick() {
+        getArticles().then(d => console.log(d));
+    }
+
+    componentWillUnmount() {
+        if (this.state.timer) {
+            window.clearInterval(this.state.timer);
+        }
     }
 
     render() {

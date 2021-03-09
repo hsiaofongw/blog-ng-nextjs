@@ -47,6 +47,7 @@ interface IHomeProps {
 
 interface IHomeState {
     postExcerptData: IPostExcerptData[];
+    timer: number | undefined;
 }
 
 interface IAboutProps {
