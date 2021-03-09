@@ -41,16 +41,10 @@ class CardDetail extends React.Component<ICardData, {}> {
         const link = this.props.link;
         const previewLink = getPreviewURL(link);
 
-        // const preview = <img src={previewLink} height={100} />;
-        const preview = undefined;
-
-        return <div key={link} className={styles.carddetailcontainer} >
-            <div className={styles.carddetail}>
+        return <div className={styles.carddetail}>
             <h2>{title}</h2>
             <div className={styles.description}>{description}</div>
             <time dateTime={addDate} >{addDate+" 添加"}</time>
-            </div>
-            {preview}
         </div>;
 
     }
