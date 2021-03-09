@@ -42,22 +42,42 @@ class Home extends React.Component<IHomeProps, IHomeState> {
 
         this.state = {
             "postExcerptData": [],
-            "timer": undefined
+            "timer": undefined,
+            "articleIndices": new Set<string>()
         };
     }
 
-    componentDidMount() {
+    makePrettyUrls (articles: IPostExcerptData[]) {
         const staticEndPoint = "https://static.exploro.one/pdf";
         const legacySiteEndPoint = "https://beyondstars.xyz";
         const pdfSuffix = ".pdf";
 
-        let articles = this.props.postExcerptData;
         for (let a of articles) {
             a["prettyPath"] = a["file"]
                 .replace(staticEndPoint, "/posts")
                 .replace(legacySiteEndPoint, "")
                 .replace(pdfSuffix, "/");
         }
+    }
+
+    createIndices(articles: IPostExcerptData[]) {
+        let articleIndices = this.state.articleIndices;
+        for (const a of articles) {
+            const key = a.file;
+            articleIndices.add(key);
+        }
+
+        this.setState({
+            "articleIndices": articleIndices
+        });
+    }
+
+    componentDidMount() {
+
+        let articles = this.props.postExcerptData;
+        this.makePrettyUrls(articles);
+
+        this.createIndices(articles);
 
         const tickPeriod =  20000;
         const timer = window.setInterval(() => this.tick(), tickPeriod);
@@ -74,7 +94,7 @@ class Home extends React.Component<IHomeProps, IHomeState> {
         getArticles().then(d => {
             for (const article of d) {
                 const key = article.file;
-                if (key in this.state.postExcerptData) {
+                if (this.state.articleIndices.has(key)) {
                     ;
                 }
                 else {
@@ -84,6 +104,8 @@ class Home extends React.Component<IHomeProps, IHomeState> {
                 }
             }
         });
+
+        this.createIndices(newArticles);
 
         this.setState({
             "postExcerptData": this.state.postExcerptData.concat(newArticles)

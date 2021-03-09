@@ -48,6 +48,7 @@ interface IHomeProps {
 interface IHomeState {
     postExcerptData: IPostExcerptData[];
     timer: number | undefined;
+    articleIndices: Set<string>;
 }
 
 interface IAboutProps {
