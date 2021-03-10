@@ -93,13 +93,18 @@ class Home extends React.Component<IHomeProps, IHomeState> {
             "timer": timer
         }, () => {
             this.addArticles(articles);
+            this.fetchNew();
+        });
+    }
+
+    fetchNew() {
+        getArticles().then(d => {
+            this.addArticles(d);
         });
     }
 
     tick() {
-        getArticles().then(d => {
-            this.addArticles(d);
-        });
+        this.fetchNew();
     }
 
     componentWillUnmount() {
