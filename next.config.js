@@ -3,7 +3,8 @@ async function rewrites() {
     const testApiEndPoint =  "https://exploro-git-test-hsiaofongw.vercel.app";
     const mainEndPoint = "https://exploro.vercel.app";
 
-    const apiEndPoint = mainEndPoint;
+    // const apiEndPoint = mainEndPoint;
+    const apiEndPoint = testApiEndPoint;
 
     const apiPath = "/api/rewrites";
     const fullURI = `${apiEndPoint}${apiPath}`;
