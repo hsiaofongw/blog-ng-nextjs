@@ -4,12 +4,17 @@ import Layout from '../components/Layout';
 import { getDataForHomePage } from '../helpers/blogDataDto';
 import { getArticles } from '../helpers/blogDataDto';
 
-export async function getStaticProps(): Promise<{ props: IHomeProps }> {
-
+export async function getServerSideProps(): Promise< { props: IHomeProps } > {
     const [postExcerptData, blogBasicMetaData] = await getDataForHomePage();
-
     return { props: { postExcerptData, blogBasicMetaData }};
 }
+
+// export async function getStaticProps(): Promise<{ props: IHomeProps }> {
+
+//     const [postExcerptData, blogBasicMetaData] = await getDataForHomePage();
+
+//     return { props: { postExcerptData, blogBasicMetaData }};
+// }
 
 class ArticleExcerptList extends React.Component<{}, {}> {
     
