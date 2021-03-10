@@ -10,9 +10,7 @@ export async function getServerSideProps(): Promise< { props: IHomeProps } > {
 }
 
 // export async function getStaticProps(): Promise<{ props: IHomeProps }> {
-
 //     const [postExcerptData, blogBasicMetaData] = await getDataForHomePage();
-
 //     return { props: { postExcerptData, blogBasicMetaData }};
 // }
 

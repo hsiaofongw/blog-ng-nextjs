@@ -3,12 +3,15 @@ import styles from '../../styles/Public.module.scss';
 import Layout from '../../components/Layout';
 import { getDataForAboutPage } from '../../helpers/blogDataDto';
 
-export async function getStaticProps(): Promise< { props: IAboutProps } > {
-
+export async function getServerSideProps(): Promise< { props: IAboutProps } > {
     const [postExcerptData, blogBasicMetaData] = await getDataForAboutPage();
-
     return { props: { postExcerptData, blogBasicMetaData }};
 }
+
+// export async function getStaticProps(): Promise< { props: IAboutProps } > {
+//     const [postExcerptData, blogBasicMetaData] = await getDataForAboutPage();
+//     return { props: { postExcerptData, blogBasicMetaData }};
+// }
 
 class ArticleExcerptList extends React.Component<{}, {}> {
     
