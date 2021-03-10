@@ -51,7 +51,7 @@ class About extends React.Component<IAboutProps, {}> {
                 .replace(legacySiteEndPoint, "")
                 .replace(pdfSuffix, "/");
         }
-    }
+    } 
 
     render() {
         const pageName= `关于 | ${this.props.blogBasicMetaData.title}`;
