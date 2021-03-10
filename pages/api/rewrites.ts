@@ -3,7 +3,7 @@ import { getArticles } from '../../helpers/blogDataDto';
 
 function createRewriteRule(data: IPostExcerptData[]): [IPostExcerptData[], IPostURLRewriteRoute[]] {
     
-    const staticEndPoint = "https://static.exploro.one/pdf";
+    const staticEndPoint = "https://hsiaofong-public-read.oss-accelerate.aliyuncs.com/latexblog";
     const legacySiteEndPoint = "https://beyondstars.xyz";
     const pdfSuffix = ".pdf";
 
