@@ -14,6 +14,13 @@ export async function getArticles(): Promise<IPostExcerptData[]> {
     return postExcerptData;
 }
 
+export async function getAbouts(): Promise<IPostExcerptData[]> {
+    const dataUrl = `${resourceUrl}/abouts`;
+    const postExcerptData = await fetch(dataUrl).then(d => d.json()) as IPostExcerptData[];
+    
+    return postExcerptData;
+}
+
 export async function getDataForHomePage(): Promise<[ IPostExcerptData[], IBlogBasicMetaData ]> {
 
     const dataUrl = `${resourceUrl}/articles`;

@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { getArticles } from '../../helpers/blogDataDto';
+import { getArticles, getAbouts } from '../../helpers/blogDataDto';
 
 function createRewriteRule(data: IPostExcerptData[]): [IPostExcerptData[], IPostURLRewriteRoute[]] {
     
@@ -30,6 +30,8 @@ function createRewriteRule(data: IPostExcerptData[]): [IPostExcerptData[], IPost
 async function rewrites() {
 
     let data = await getArticles();
+    let abouts = await getAbouts();
+    data = data.concat(abouts);
     let routes: IPostURLRewriteRoute[] = [];
     [data, routes] = createRewriteRule(data);
 
