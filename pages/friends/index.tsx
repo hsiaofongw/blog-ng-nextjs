@@ -96,6 +96,7 @@ class Avatars extends React.Component<{ cards: ICardData[], hasSelected: (link: 
                 className={cName}
                 key={card.link} 
                 href={card.link}
+                target="_blank"
                 onMouseOver={e => this.onMouseOver(card.link)}
                 onMouseLeave={e => this.onMouseLeave()}
             >
