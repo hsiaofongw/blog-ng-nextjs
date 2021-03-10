@@ -9,11 +9,6 @@ export async function getServerSideProps(): Promise< { props: IHomeProps } > {
     return { props: { postExcerptData, blogBasicMetaData }};
 }
 
-// export async function getStaticProps(): Promise<{ props: IHomeProps }> {
-//     const [postExcerptData, blogBasicMetaData] = await getDataForHomePage();
-//     return { props: { postExcerptData, blogBasicMetaData }};
-// }
-
 class ArticleExcerptList extends React.Component<{}, {}> {
     
     render() {

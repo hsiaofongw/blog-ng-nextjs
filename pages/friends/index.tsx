@@ -4,7 +4,7 @@ import styles from '../../styles/Friend.module.scss'
 import Layout from '../../components/Layout';
 import { getDataForFriendPage } from '../../helpers/blogDataDto';
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
 
     const [cardData, blogBasicMetaData] = await getDataForFriendPage();
 
