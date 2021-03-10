@@ -32,7 +32,7 @@ class ArticleExcerpt extends React.Component<IPostExcerptData, {}> {
                 <time dateTime={date} >{date}</time>
             </a>
         </li>;
-    }
+    } 
 }
 
 class Home extends React.Component<IHomeProps, IHomeState> {
