@@ -34,6 +34,12 @@ function getPreviewURL(link: string) {
 }
 
 class CardDetail extends React.Component<ICardData, {}> {
+
+
+    onClick(link: string) {
+        window.open(link, '_blank');
+    }
+
     render() {
         const title = this.props.title;
         const description = this.props.description;
@@ -41,7 +47,7 @@ class CardDetail extends React.Component<ICardData, {}> {
         const link = this.props.link;
         const previewLink = getPreviewURL(link);
 
-        return <div className={styles.carddetail}>
+        return <div onClick={e => this.onClick(link)} className={styles.carddetail}>
             <h2>{title}</h2>
             <div className={styles.description}>{description}</div>
             <time dateTime={addDate} >{addDate+" 添加"}</time>
