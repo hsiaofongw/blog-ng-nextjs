@@ -1,5 +1,6 @@
 async function rewrites() {
 
+    // It use last version API
     const testApiEndPoint =  "https://exploro-git-test-hsiaofongw.vercel.app";
     const mainEndPoint = "https://exploro.vercel.app";
 
