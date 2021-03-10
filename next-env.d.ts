@@ -77,3 +77,21 @@ interface IPostURLRewriteRoute {
     source: string;
     destination: string;
 }
+
+interface ICommentData {
+
+    serialNumber: number;
+    replyTo: number;
+    email: string;
+    nickName: string;
+    website: string;
+    content: string;
+
+}
+
+interface ICommentsPageProps {
+
+    commentsData: ICommentData[];
+    blogBasicMetaData: IBlogBasicMetaData;
+
+}
