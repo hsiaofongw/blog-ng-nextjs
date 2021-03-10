@@ -22,7 +22,7 @@ class ArticleExcerpt extends React.Component<IPostExcerptData, {}> {
         const title = this.props.name;
         const description = this.props.description;
         const date = this.props.date;
-        const file = this.props.file;
+        const file = this.props.prettyPath || this.props.file;
 
         return <li>
             <a href={file} target="_blank">
@@ -40,10 +40,24 @@ class About extends React.Component<IAboutProps, {}> {
         super(props);
     }
 
+    makePrettyUrls (articles: IPostExcerptData[]) {
+        const staticEndPoint = "https://hsiaofong-public-read.oss-accelerate.aliyuncs.com/latexblog";
+        const legacySiteEndPoint = "https://beyondstars.xyz";
+        const pdfSuffix = ".pdf";
+
+        for (let a of articles) {
+            a["prettyPath"] = a["file"]
+                .replace(staticEndPoint, "/posts")
+                .replace(legacySiteEndPoint, "")
+                .replace(pdfSuffix, "/");
+        }
+    }
+
     render() {
         const pageName= `关于 | ${this.props.blogBasicMetaData.title}`;
 
-        const articles = this.props.postExcerptData;
+        let articles = this.props.postExcerptData;
+        this.makePrettyUrls(articles);
         const articleElements = articles.map(a => <ArticleExcerpt key={a.file} {...a} />);
         const articlesListElement = <ArticleExcerptList>{articleElements}</ArticleExcerptList>
 
