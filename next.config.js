@@ -4,12 +4,12 @@ async function rewrites() {
 
     routes.push({
         source: '/posts/:anything(.+)',
-        destination: 'http://blog-data-nextjs.vercel.app/api/dynamicrewrites/posts/:anything'
+        destination: 'https://blog-data-nextjs.vercel.app/api/dynamicrewrites/posts/:anything'
     });
 
     routes.push({
         source: '/abouts/:anything(.+)',
-        destination: 'http://blog-data-nextjs.vercel.app/api/dynamicrewrites/abouts/:anything'
+        destination: 'https://blog-data-nextjs.vercel.app/api/dynamicrewrites/abouts/:anything'
     });
 
     return routes;
