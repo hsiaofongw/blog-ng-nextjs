@@ -1,4 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiRequest, NextApiResponse } from 'next';
 import { getArticles, getAbouts } from '../../helpers/blogDataDto';
 
 function createRewriteRule(data: IPostExcerptData[]): [IPostExcerptData[], IPostURLRewriteRoute[]] {
