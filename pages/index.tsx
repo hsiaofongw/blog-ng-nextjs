@@ -45,18 +45,7 @@ class Home extends React.Component<IHomeProps, IHomeState> {
         };
     }
 
-    makePrettyUrls (articles: IPostExcerptData[]) {
-        const staticEndPoint = "https://blog-data-nextjs.vercel.app/api/pdfs";
-        const legacySiteEndPoint = "https://beyondstars.xyz";
-        const pdfSuffix = ".pdf";
-
-        for (let a of articles) {
-            a["prettyPath"] = a["file"]
-                .replace(staticEndPoint, "/posts")
-                .replace(legacySiteEndPoint, "")
-                .replace(pdfSuffix, "/");
-        }
-    }
+    
 
     addArticles(arrivedArticles: IPostExcerptData[]) {
         let indices = this.state.articleIndices;
@@ -71,7 +60,7 @@ class Home extends React.Component<IHomeProps, IHomeState> {
             }
         }
 
-        this.makePrettyUrls(receivedArticles);
+
         articles = receivedArticles.concat(articles);
 
         this.setState({
