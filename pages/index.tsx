@@ -46,7 +46,7 @@ class Home extends React.Component<IHomeProps, IHomeState> {
     }
 
     makePrettyUrls (articles: IPostExcerptData[]) {
-        const staticEndPoint = "https://hsiaofong-public-read.oss-accelerate.aliyuncs.com/latexblog";
+        const staticEndPoint = "https://blog-data-nextjs.vercel.app/api/pdfs";
         const legacySiteEndPoint = "https://beyondstars.xyz";
         const pdfSuffix = ".pdf";
 
