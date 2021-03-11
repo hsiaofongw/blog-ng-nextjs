@@ -3,8 +3,13 @@ async function rewrites() {
     let routes = [];
 
     routes.push({
-        source: "/posts/:anything(.+)",
-        destination: 'https://blog-data-nextjs.vercel.app/api/dynamicrewrites/:anything'
+        source: '/posts/:anything(.+)',
+        destination: 'http://localhost:3000/api/dynamicrewrites/posts/:anything'
+    });
+
+    routes.push({
+        source: '/abouts/:anything(.+)',
+        destination: 'http://localhost:3000/api/dynamicrewrites/abouts/:anything'
     });
 
     return routes;
