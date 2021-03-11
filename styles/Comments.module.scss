@@ -1,0 +1,40 @@
+@mixin frame() {
+    outline-style: solid;
+    outline-color: #586e75;
+    outline-width: 2px;
+}
+
+.avatar {
+    border-radius: 100%;
+
+    align-self: flex-start;
+}
+
+.list {
+    margin-top: 36px;
+    margin-bottom: 36px;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 36px;
+}
+
+.comment {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    grid-template-rows: 50px 100px 60px 60px;
+
+    align-items: center;
+
+    .avatar {
+        grid-row: 1/5;
+    }
+}
+
+.comment:hover {
+    @include frame();
+
+    cursor: default;
+}
+
+

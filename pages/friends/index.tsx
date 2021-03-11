@@ -3,6 +3,7 @@ import publicstyles from '../../styles/Public.module.scss'
 import styles from '../../styles/Friend.module.scss'
 import Layout from '../../components/Layout';
 import { getDataForFriendPage } from '../../helpers/blogDataDto';
+import { avatarSimplify } from '../../helpers/avatar';
 
 export async function getServerSideProps() {
 
@@ -11,15 +12,6 @@ export async function getServerSideProps() {
     return { props: { cardData, blogBasicMetaData }};
 }
 
-function avatarSimplify(link: string) {
-    const apiEndPoint = "https://webimagecache.vercel.app";
-    const apiPath = "/api/avatar";
-
-    let url = new URL(`${apiEndPoint}${apiPath}`);
-    url.searchParams.append("link", link);
-
-    return url.toString();
-}
 
 function getPreviewURL(link: string) {
     // const apiEndPoint = "https://websitepreview.vercel.app";

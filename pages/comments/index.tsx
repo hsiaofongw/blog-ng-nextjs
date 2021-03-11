@@ -1,7 +1,9 @@
 import React from "react";
-import styles from '../../styles/Public.module.scss'
+import publicstyles from '../../styles/Public.module.scss'
+import styles from '../../styles/Comments.module.scss';
 import Layout from '../../components/Layout';
 import { getDataForCommentsPage } from '../../helpers/blogDataDto';
+import { avatarSimplify, getGravatar } from '../../helpers/avatar';
 
 export async function getServerSideProps(): Promise< { props: ICommentsPageProps } > {
     const [commentsData, blogBasicMetaData] = await getDataForCommentsPage();
@@ -14,7 +16,7 @@ export async function getServerSideProps(): Promise< { props: ICommentsPageProps
 class ArticleExcerptList extends React.Component<{}, {}> {
     
     render() {
-        return <ul className={styles.articlelist}>{this.props.children}</ul>;
+        return <ul className={publicstyles.articlelist}>{this.props.children}</ul>;
     }
 }
 
@@ -28,11 +30,41 @@ class ArticleExcerpt extends React.Component<IPostExcerptData, {}> {
         return <li>
             <a href={file} target="_blank">
                 <h2>{title}</h2>
-                <div className={styles.description}>{description}</div>
+                <div className={publicstyles.description}>{description}</div>
                 <time dateTime={date} >{date}</time>
             </a>
         </li>;
     } 
+}
+
+class Comment extends React.Component<ICommentProps, {}> {
+    
+    constructor(props: ICommentProps) {
+        super(props);
+    }
+
+    render() {
+
+        let t = new Date(this.props.data.date).toLocaleDateString();
+
+        return <div 
+            key={this.props.data.serialNumber}
+            className={styles.comment} 
+        >
+            <img
+                className={styles.avatar}
+                src={avatarSimplify(getGravatar(this.props.data.email))}
+                width={50}
+                height={50}
+                alt="头像"
+            />
+            <span>{this.props.data.nickName}</span>
+            <p>{this.props.data.content}</p>
+            <time dateTime={t}>{t}</time>
+            <div><span>内容编号</span><span>{this.props.data.serialNumber}</span></div>
+        </div>;
+    }
+
 }
 
 class Comments extends React.Component<ICommentsPageProps, {}> {
@@ -44,15 +76,15 @@ class Comments extends React.Component<ICommentsPageProps, {}> {
     render() {
         const comments = this.props.commentsData;
 
-        const commentElements = comments.map(c => <div key={c.serialNumber}>{c.content}</div>);
+        const commentElements = comments.map(c => <Comment key={c.serialNumber} data={c} />);
 
         return <Layout 
                     title="探索子" 
                     pageName={this.props.blogBasicMetaData.title} 
                     blogBasicMetaData={this.props.blogBasicMetaData}
                 >
-            <main className={styles.main}>
-                <div>
+            <main className={publicstyles.main}>
+                <div className={styles.list}>
                     {commentElements}
                 </div>
             </main>

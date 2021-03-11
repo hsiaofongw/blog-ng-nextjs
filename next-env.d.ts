@@ -86,7 +86,12 @@ interface ICommentData {
     nickName: string;
     website: string;
     content: string;
+    date: number;
 
+}
+
+interface ICommentProps {
+    data: ICommentData;
 }
 
 interface ICommentsPageProps {
