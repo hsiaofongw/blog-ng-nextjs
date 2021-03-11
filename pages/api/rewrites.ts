@@ -3,7 +3,7 @@ import { getArticles, getAbouts } from '../../helpers/blogDataDto';
 
 function createRewriteRule(data: IPostExcerptData[]): [IPostExcerptData[], IPostURLRewriteRoute[]] {
     
-    const staticEndPoint = "https://hsiaofong-public-read.oss-accelerate.aliyuncs.com/latexblog";
+    const staticEndPoint = "https://blog-data-nextjs.vercel.app/api/pdfs";
     const legacySiteEndPoint = "https://beyondstars.xyz";
     const pdfSuffix = ".pdf";
 
