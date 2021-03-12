@@ -1,41 +1,48 @@
-a {
-  color: inherit;
-  text-decoration: none;
+@mixin heiti() {
+    font-family: "Hiragino Sans GB W3", "Noto Sans SC", 
+        sans-serif, monospace, system-ui;
+
+    // font-family: Menlo, Monaco, "Courier New", monospace;
 }
 
-h1, h2, h3 {
-  font-family: "Hiragino Sans GB W3", "Noto Sans SC Regular";
-  font-weight: initial;
-  color: inherit;
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+h1,
+h2,
+h3 {
+    @include heiti();
+    font-weight: initial;
+    color: inherit;
 }
 
 h1:hover {
-  cursor: default;
+    cursor: default;
 }
 
 ul {
-  list-style-type: none;
+    list-style-type: none;
 }
-
 
 html,
 body {
-  color: #586e75;
+    color: #586e75;
 
-  // background-color: #586e75;
+    // background-color: #586e75;
+    @include heiti();
 
-  padding: 0px;
-  margin: 0px;
-  font-family: "Hiragino Sans GB W3", "Noto Sans SC Regular";
+    padding: 0px;
+    margin: 0px;
 
-  @media (min-width: 700px) {
-    display: grid;
-    grid-template-columns: 700px;
-    grid-template-rows: 1fr;
-    justify-content: center;
-  }
+    @media (min-width: 700px) {
+        display: grid;
+        grid-template-columns: 700px;
+        grid-template-rows: 1fr;
+        justify-content: center;
+    }
 
-  font-weight: initial;
-
+    font-weight: initial;
 }
-  
