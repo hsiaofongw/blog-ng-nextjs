@@ -48,7 +48,7 @@ class Layout extends React.Component<ILayoutProps, {}> {
             <title>{pageName}</title>
             <meta charSet={this.props.blogBasicMetaData.charSet} />
             <meta name="description" content={this.props.blogBasicMetaData.description} />
-            <script async defer data-website-id="b8fb05b6-bf40-4246-85ee-faaddebc90fb" src="https://umami.exploro.one/umami.js"></script>
+            <script async defer data-website-id="ab79c637-0ead-45c2-9ce3-df9b2b014d43" src="https://umami.exploro.one/umami.js"></script>
             <script async src="https://www.googletagmanager.com/gtag/js?id=G-56BN9HGYJ0"></script>
             <script src="/ga.js"></script>
             <link rel="icon" href={avatar} />
