@@ -4,7 +4,7 @@ a {
 }
 
 h1, h2, h3 {
-  font-family: "Noto Sans SC Regular";
+  font-family: "HiraginoSansGB-W3", "Noto Sans SC Regular";
   font-weight: initial;
   color: inherit;
 }
@@ -26,7 +26,7 @@ body {
 
   padding: 0px;
   margin: 0px;
-  font-family: "Noto Sans SC Light";
+  font-family: "HiraginoSansGB-W3", "Noto Sans SC Light";
 
   @media (min-width: 700px) {
     display: grid;
