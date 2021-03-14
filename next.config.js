@@ -44,16 +44,19 @@ async function headers() {
 
 async function rewrites() {
 
+    // const dataAPI = "https://blog-data-nextjs.vercel.app/api";
+    const dataAPI = "http://localhost:3000/api";
+
     let routes = [];
 
     routes.push({
         source: '/posts/:anything(.+)',
-        destination: 'https://blog-data-nextjs.vercel.app/api/dynamicrewrites/posts/:anything'
+        destination: `${dataAPI}/dynamicrewrites/posts/:anything`
     });
 
     routes.push({
         source: '/abouts/:anything(.+)',
-        destination: 'https://blog-data-nextjs.vercel.app/api/dynamicrewrites/abouts/:anything'
+        destination: `${dataAPI}/dynamicrewrites/abouts/:anything`
     });
 
     return routes;
