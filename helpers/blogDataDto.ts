@@ -1,5 +1,8 @@
 const resourceUrl = "https://blog-data-nextjs.vercel.app/api"
 // const resourceUrl = "http://localhost:3000/api";
+// const resourceUrl = "http://localhost:3001/api";
+// const resourceUrl = "https://blog-data-nextjs-git-test-hsiaofongw.vercel.app/api";
+// const resourceUrl = "https://blog-data-nextjs-5xrrk0piy-hsiaofongw.vercel.app/api";
 
 export async function getBlogBasicMetaData(): Promise< IBlogBasicMetaData > {
     const blogBasicMetaDataUrl = `${resourceUrl}/blog-basic-metadata`;

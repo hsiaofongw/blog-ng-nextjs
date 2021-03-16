@@ -46,6 +46,9 @@ async function rewrites() {
 
     const dataAPI = "https://blog-data-nextjs.vercel.app/api";
     // const dataAPI = "http://localhost:3000/api";
+    // const dataAPI = "http://localhost:3001/api";
+    // const dataAPI = "https://blog-data-nextjs-git-test-hsiaofongw.vercel.app/api";
+    // const dataAPI = "https://blog-data-nextjs-5xrrk0piy-hsiaofongw.vercel.app/api";
 
     let routes = [];
 

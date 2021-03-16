@@ -6,8 +6,8 @@ export class ArticleExcerpt extends React.Component<IPostExcerptData, {}> {
         const title = this.props.name;
         const description = this.props.description;
         const date = this.props.date;
-        // const file = this.props.prettyPath || this.props.file;
-        const file = this.props.file;
+        const file = this.props.prettyPath || this.props.file;
+        // const file = this.props.file;
 
         return <li>
             <a href={file} target="_blank">
