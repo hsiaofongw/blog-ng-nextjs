@@ -3,6 +3,7 @@ import styles from '../styles/Public.module.scss'
 import Layout from '../components/Layout';
 import { getDataForHomePage } from '../helpers/blogDataDto';
 import { getArticles } from '../helpers/blogDataDto';
+import { ArticleExcerpt } from '../components/ArticleExcerpt';
 
 export async function getServerSideProps(): Promise< { props: IHomeProps } > {
     const [postExcerptData, blogBasicMetaData] = await getDataForHomePage();
@@ -14,23 +15,6 @@ class ArticleExcerptList extends React.Component<{}, {}> {
     render() {
         return <ul className={styles.articlelist}>{this.props.children}</ul>;
     }
-}
-
-class ArticleExcerpt extends React.Component<IPostExcerptData, {}> {
-    render() {
-        const title = this.props.name;
-        const description = this.props.description;
-        const date = this.props.date;
-        const file = this.props.prettyPath || this.props.file;
-
-        return <li>
-            <a href={file} target="_blank">
-                <h2>{title}</h2>
-                <div className={styles.description}>{description}</div>
-                <time dateTime={date} >{date}</time>
-            </a>
-        </li>;
-    } 
 }
 
 class Home extends React.Component<IHomeProps, IHomeState> {

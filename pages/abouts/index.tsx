@@ -2,6 +2,7 @@ import React from "react";
 import styles from '../../styles/Public.module.scss';
 import Layout from '../../components/Layout';
 import { getDataForAboutPage } from '../../helpers/blogDataDto';
+import { ArticleExcerpt } from '../../components/ArticleExcerpt';
 
 export async function getServerSideProps(): Promise< { props: IAboutProps } > {
     const [postExcerptData, blogBasicMetaData] = await getDataForAboutPage();
@@ -20,22 +21,7 @@ class ArticleExcerptList extends React.Component<{}, {}> {
     }
 }
 
-class ArticleExcerpt extends React.Component<IPostExcerptData, {}> {
-    render() {
-        const title = this.props.name;
-        const description = this.props.description;
-        const date = this.props.date;
-        const file = this.props.prettyPath || this.props.file;
 
-        return <li>
-            <a href={file} target="_blank">
-                <h2>{title}</h2>
-                <div className={styles.description}>{description}</div>
-                <time dateTime={date} >{date}</time>
-            </a>
-        </li>;
-    }
-}
 
 class About extends React.Component<IAboutProps, {}> {
 
