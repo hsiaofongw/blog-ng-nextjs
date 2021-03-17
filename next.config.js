@@ -62,6 +62,11 @@ async function rewrites() {
         destination: `${dataAPI}/dynamicrewrites/abouts/:anything`
     });
 
+    routes.push({
+        source: '/feed/:whatever',
+        destination: 'https://blog-data-nextjs-8o4gmulol-hsiaofongw.vercel.app/api/feed/:whatever'
+    });
+
     return routes;
 }
 
