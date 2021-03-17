@@ -48,6 +48,7 @@ class Layout extends React.Component<ILayoutProps, {}> {
             <title>{pageName}</title>
             <meta charSet={this.props.blogBasicMetaData.charSet} />
             <meta name="description" content={this.props.blogBasicMetaData.description} />
+            <link rel="alternate" type="application/atom+xml" title="探索子" href="/feed/atom" />
             <script async defer data-website-id="ab79c637-0ead-45c2-9ce3-df9b2b014d43" src="https://umami.exploro.one/umami.js"></script>
             <script async src="https://www.googletagmanager.com/gtag/js?id=G-56BN9HGYJ0"></script>
             <script src="/ga.js"></script>
