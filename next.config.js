@@ -64,7 +64,7 @@ async function rewrites() {
 
     routes.push({
         source: '/feed/:whatever',
-        destination: 'https://blog-data-nextjs-8o4gmulol-hsiaofongw.vercel.app/api/feed/:whatever'
+        destination: 'https://blog-data-nextjs.vercel.app/api/feed/:whatever'
     });
 
     return routes;
