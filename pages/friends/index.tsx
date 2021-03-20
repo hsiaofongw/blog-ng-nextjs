@@ -4,10 +4,8 @@ import Layout from "../../components/Layout";
 import { getDataForFriendPage } from '../../helpers/blogDataDto';
 import { Random } from "../../helpers/random";
 
-export async function getServerSideProps() {
-
+export async function getStaticProps() {
     const [cardData, blogBasicMetaData] = await getDataForFriendPage();
-
     return { props: { cardData, blogBasicMetaData }};
 }
 

@@ -1,14 +1,7 @@
-import Head from "next/head";
 import React from "react";
 import { ArticleExcerpt } from "../components/ArticleExcerpt";
 import Layout from "../components/Layout";
-import { Menu } from "../components/Menu";
 import { getDataForHomePage } from '../helpers/blogDataDto';
-
-// export async function getServerSideProps(): Promise< { props: IHomeProps } > {
-//     const [postExcerptData, blogBasicMetaData] = await getDataForHomePage();
-//     return { props: { postExcerptData, blogBasicMetaData }};
-// }
 
 export async function getStaticProps(): Promise< { props: IHomeProps } > {
     const [postExcerptData, blogBasicMetaData] = await getDataForHomePage();
