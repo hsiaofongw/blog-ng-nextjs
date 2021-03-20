@@ -4,37 +4,18 @@ import Layout from "../../components/Layout";
 import { getDataForFriendPage } from '../../helpers/blogDataDto';
 import { Random } from "../../helpers/random";
 
-export async function getStaticProps() {
-    const [cardData, blogBasicMetaData] = await getDataForFriendPage();
+export async function getServerSideProps() {
+    let [cardData, blogBasicMetaData] = await getDataForFriendPage();
+
+    cardData = Random.shuffle(cardData);
+
     return { props: { cardData, blogBasicMetaData }};
 }
 
-class Friend extends React.Component<IFriendProps, IFriendState> {
-
-    constructor(props: IFriendProps) {
-        super(props);
-
-        this.state = {
-            cards: this.props.cardData
-        };
-    }
+class Friend extends React.Component<IFriendProps, {}> {
 
     render() {
-        let friends = [];
-        const n = this.state.cards.length;
-        for (let i = 0; i < n; i++) {
-            const card = this.state.cards[i];
-            friends.push(
-                <FriendExcerpt 
-                    key={card.link}
-                    title={card.title}
-                    description={card.description}
-                    link={card.link}
-                    addDate={card.addDate}
-                    avatar={card.avatar}
-                />
-            )
-        }
+        let friends = this.props.cardData.map(card => <FriendExcerpt key={card.link} {...card} />);
 
         return <Layout blogBasicMetaData={this.props.blogBasicMetaData}>
             <ul className="mb-6">
