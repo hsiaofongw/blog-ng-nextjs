@@ -1,100 +1,44 @@
 import React from "react";
-import styles from '../styles/Public.module.scss'
-import Layout from '../components/Layout';
+import { ArticleExcerpt } from "../components/ArticleExcerpt";
 import { getDataForHomePage } from '../helpers/blogDataDto';
-import { getArticles } from '../helpers/blogDataDto';
-import { ArticleExcerpt } from '../components/ArticleExcerpt';
 
-export async function getServerSideProps(): Promise< { props: IHomeProps } > {
+// export async function getServerSideProps(): Promise< { props: IHomeProps } > {
+//     const [postExcerptData, blogBasicMetaData] = await getDataForHomePage();
+//     return { props: { postExcerptData, blogBasicMetaData }};
+// }
+
+export async function getStaticProps(): Promise< { props: IHomeProps } > {
     const [postExcerptData, blogBasicMetaData] = await getDataForHomePage();
     return { props: { postExcerptData, blogBasicMetaData }};
 }
 
-class ArticleExcerptList extends React.Component<{}, {}> {
-    
-    render() {
-        return <ul className={styles.articlelist}>{this.props.children}</ul>;
-    }
-}
-
 class Home extends React.Component<IHomeProps, IHomeState> {
 
-    constructor(props: IHomeProps) {
-        super(props);
-
-        this.state = {
-            "postExcerptData": [],
-            "timer": undefined,
-            "articleIndices": new Set<string>()
-        };
-    }
-
-    
-
-    addArticles(arrivedArticles: IPostExcerptData[]) {
-        let indices = this.state.articleIndices;
-        let articles = this.state.postExcerptData;
-
-        let receivedArticles: IPostExcerptData[] = []
-        for (const a of arrivedArticles) {
-            const key = a.file;
-            if (!indices.has(key)) {
-                indices.add(key);
-                receivedArticles.push(a);
-            }
-        }
-
-
-        articles = receivedArticles.concat(articles);
-
-        this.setState({
-            "articleIndices": indices,
-            "postExcerptData": articles
-        });
-    }
-
-    componentDidMount() {
-
-        let articles = this.props.postExcerptData;
-
-        const tickPeriod =  30000;
-        const timer = window.setInterval(() => this.tick(), tickPeriod);
-
-        this.setState({
-            "timer": timer
-        }, () => {
-            this.addArticles(articles);
-            this.fetchNew();
-        });
-    }
-
-    fetchNew() {
-        getArticles().then(d => {
-            this.addArticles(d);
-        });
-    }
-
-    tick() {
-        this.fetchNew();
-    }
-
-    componentWillUnmount() {
-        if (this.state.timer) {
-            window.clearInterval(this.state.timer);
-        }
-    }
-
     render() {
-        const articles = this.state.postExcerptData;
+        const articles = this.props.postExcerptData.map(d => {
+            return <ArticleExcerpt 
+                key={d.file}
+                name={d.name} 
+                description={d.description} 
+                date={d.date} 
+                file={d.file} 
+                prettyPath={d.prettyPath} 
+            />;
+        });
 
-        const articleElements = articles.map(a => <ArticleExcerpt key={a.file} {...a} />);
-        const articlesListElement = <ArticleExcerptList>{articleElements}</ArticleExcerptList>
-
-        return <Layout title="探索子" pageName={this.props.blogBasicMetaData.title} blogBasicMetaData={this.props.blogBasicMetaData}>
-            <main className={styles.main}>
-                {articlesListElement}
-            </main>
-        </Layout>;
+        return <div className="mx-auto p-4 max-w-3xl">
+            <h1 className="text-2xl mb-4">探索子</h1>
+            <nav className="mb-4">
+                <ul>
+                    <li className="inline mr-2"><a href="/">文章</a></li>
+                    <li className="inline mr-2"><a href="/friends">友链</a></li>
+                    <li className="inline mr-2"><a href="/abouts">关于</a></li>
+                </ul>
+            </nav>
+            <ul className="mb-6">
+                {articles}
+            </ul>
+        </div>
     }
 
 }

@@ -1,9 +1,7 @@
 import React from "react";
-import publicstyles from '../../styles/Public.module.scss'
-import styles from '../../styles/Friend.module.scss'
-import Layout from '../../components/Layout';
+import { FriendExcerpt } from "../../components/FriendExcerpt";
 import { getDataForFriendPage } from '../../helpers/blogDataDto';
-import { avatarSimplify } from '../../helpers/avatar';
+import { Random } from "../../helpers/random";
 
 export async function getServerSideProps() {
 
@@ -12,177 +10,36 @@ export async function getServerSideProps() {
     return { props: { cardData, blogBasicMetaData }};
 }
 
-
-function getPreviewURL(link: string) {
-    // const apiEndPoint = "https://websitepreview.vercel.app";
-    // const apiEndPoint = "http://localhost:3001";
-    const apiEndPoint = "https://webimagecache.exploro.one";
-    const apiPath = "/api/preview";
-
-    let url = new URL(`${apiEndPoint}${apiPath}`);
-    url.searchParams.append("link", link);
-
-    return url.toString();
-}
-
-class CardDetail extends React.Component<ICardData, {}> {
-
-
-    onClick(link: string) {
-        window.open(link, '_blank');
-    }
-
-    render() {
-        const title = this.props.title;
-        const description = this.props.description;
-        const addDate = this.props.addDate;
-        const link = this.props.link;
-        const previewLink = getPreviewURL(link);
-
-        return <div key={link} onClick={e => this.onClick(link)} className={styles.carddetail}>
-            <h2>{title}</h2>
-            <div className={styles.description}>{description}</div>
-            <time dateTime={addDate} >{addDate+" 添加"}</time>
-        </div>;
-
-    }
-}
-
-class Avatars extends React.Component<{ cards: ICardData[], hasSelected: (link: string) => void, unselect: () => void }, IFriendState > {
-
-    constructor(props: { cards: ICardData[], hasSelected: (link: string) => void, unselect: () => void }) {
-        super(props);
-
-        this.state = {
-            "selected": undefined,
-            "cardIdxes": {},
-            "cards": []
-        };
-    }
-
-    onMouseOver(link: string) {
-        this.setState({
-            "selected": link
-        }, () => this.props.hasSelected(link));
-    }
-
-    onMouseLeave() {
-        this.setState({
-            "selected": undefined
-        }, () => this.props.unselect());
-    }
-
-    render() {
-        const imgs = this.props.cards.map(card => {
-
-            let cName = styles.avatarcontainer;
-            if (this.state.selected) {
-                if (card.link === this.state.selected) {
-                    cName = styles.selectedavatarcontainer;
-                }
-            }
-
-            const avatar = avatarSimplify(card.avatar);
-
-            return <a 
-                className={cName}
-                key={card.link} 
-                href={card.link}
-                target="_blank"
-                onMouseOver={e => this.onMouseOver(card.link)}
-                onMouseLeave={e => this.onMouseLeave()}
-            >
-                <img className={styles.avatar} src={avatar} alt="avatar" />
-            </a>;
-        });
-
-        const avatars = <div className={styles.avatars}>{imgs}</div>;
-
-        return avatars;
-    }
-
-}
-
 class Friend extends React.Component<IFriendProps, IFriendState> {
 
-    constructor(props: IFriendProps) {
-        super(props);
-
-        this.state = {
-            "selected": undefined,
-            "cardIdxes": {},
-            "cards": []
-        };
-    }
-
-    componentDidMount() {
-        let cards = this.props.cardData;
-        this.shuffle(cards);
-
-        let cardIdx: { [key: string]: ICardData | undefined } = {};
-        for (const card of cards) {
-            const key = card.link;
-            cardIdx[key] = card;
-        }
-        this.setState({
-            "cardIdxes": cardIdx,
-            "cards": cards
-        });
-    }
-
-    getRandomIntInclusive(min: number, max: number) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
-    }
-
-    shuffle(cards: ICardData[]) {
-        const n = cards.length;
-        for (let i = 0; i < n; i++) {
-            const choose = this.getRandomIntInclusive(i, n-1);
-            const temp = cards[i];
-            cards[i] = cards[choose];
-            cards[choose] = temp;
-        }
-    }
-
-    hasSelected(link: string) {
-        this.setState({
-            "selected": link
-        });
-    }
-
-    unselect() {
-        this.setState({
-            "selected": undefined
-        });
-    }
-
     render() {
-        const pageName= `友链 | ${this.props.blogBasicMetaData.title}`;
-        const cards = this.state.cards;
-        
-        const avatars = <Avatars unselect={() => this.unselect()} hasSelected={link => this.hasSelected(link)} cards={cards} />;
+        let cardData = this.props.cardData;
+        Random.shuffle<ICardData>(cardData);
 
-        let detail = undefined;
-        if (this.state.selected) {
-            const card = this.state.cardIdxes[this.state.selected];
-            if (card) {
-                detail = <CardDetail {...card} />;
-            }
-        }
+        const friends = cardData.map(card => {
+            return <FriendExcerpt 
+                key={card.link}
+                title={card.title}
+                description={card.description}
+                link={card.link}
+                addDate={card.addDate}
+                avatar={card.avatar}
+            />
+        });
 
-        let detailList = <div>
-            {cards.map(x => <CardDetail {...x} />)}
-        </div>;
-
-        return <Layout title="友链" pageName={pageName} blogBasicMetaData={this.props.blogBasicMetaData} >
-            <main className={styles.main}>
-                {avatars}
-                {detail}
-                {detailList}
-            </main>
-        </Layout>;
+        return <div className="mx-auto p-4 max-w-3xl">
+            <h1 className="text-2xl mb-4">探索子</h1>
+            <nav className="mb-4">
+                <ul>
+                    <li className="inline mr-2"><a href="/">文章</a></li>
+                    <li className="inline mr-2"><a href="/friends">友链</a></li>
+                    <li className="inline mr-2"><a href="/abouts">关于</a></li>
+                </ul>
+            </nav>
+            <ul className="mb-6">
+                {friends}
+            </ul>
+        </div>
     }
 
 }

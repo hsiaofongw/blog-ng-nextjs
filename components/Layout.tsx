@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import React from "react";
-import styles from '../styles/Public.module.scss'
 
 class Menu extends React.Component<IMenuProps, {}> {
 
@@ -18,7 +17,7 @@ class Menu extends React.Component<IMenuProps, {}> {
             }
         });
 
-        let menu = <nav className={styles.menu}><ul>{linkElements}</ul></nav>;
+        let menu = <nav ><ul>{linkElements}</ul></nav>;
 
         return menu;
     }
@@ -55,7 +54,7 @@ class Layout extends React.Component<ILayoutProps, {}> {
             <link rel="icon" href={avatar} />
         </Head>;
 
-        return <div className={styles.container}>
+        return <div >
             {headElement}
             {titleElement}
             {menuElement}
