@@ -6,6 +6,17 @@ module.exports = {
     darkMode: false, // or 'media' or 'class'
     theme: {
         extend: {},
+        colors: {
+            greenandgray: {
+                base03: '#002b36',
+                base02: '#073642',
+                base01: '#586e75',
+                DEFAULT: '#586e75',
+                base00: '#657b83',
+                base0: '#839496',
+                base1: '#93a1a1'
+            }
+        }
     },
     variants: {
         extend: {},

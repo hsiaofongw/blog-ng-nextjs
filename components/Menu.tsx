@@ -8,7 +8,7 @@ export class Menu extends React.Component<IBlogBasicMetaData, {}> {
             if (link.newTab) {
                 target = "_blank";
             }
-            return <li key={link.link} className="inline mr-2"><a href={link.link} target={target}>{link.name}</a></li>;
+            return <li key={link.link} className="inline mr-2 text-greenandgray"><a href={link.link} target={target}>{link.name}</a></li>;
         })
         const menu = <nav className="mb-4">
             <ul>{entries}</ul>
