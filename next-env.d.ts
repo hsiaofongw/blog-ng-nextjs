@@ -62,8 +62,8 @@ interface IFriendProps {
 }
 
 interface IFriendState {
-    selected?: string;
-    cardIdxes: { [key: string]: ICardData | undefined };
+    // selected?: string;
+    // cardIdxes: { [key: string]: ICardData | undefined };
     cards: ICardData[];
 }
 

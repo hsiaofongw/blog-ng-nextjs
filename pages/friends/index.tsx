@@ -11,20 +11,30 @@ export async function getStaticProps() {
 
 class Friend extends React.Component<IFriendProps, IFriendState> {
 
-    render() {
-        let cardData = this.props.cardData;
-        Random.shuffle<ICardData>(cardData);
+    constructor(props: IFriendProps) {
+        super(props);
 
-        const friends = cardData.map(card => {
-            return <FriendExcerpt 
-                key={card.link}
-                title={card.title}
-                description={card.description}
-                link={card.link}
-                addDate={card.addDate}
-                avatar={card.avatar}
-            />
-        });
+        this.state = {
+            cards: this.props.cardData
+        };
+    }
+
+    render() {
+        let friends = [];
+        const n = this.state.cards.length;
+        for (let i = 0; i < n; i++) {
+            const card = this.state.cards[i];
+            friends.push(
+                <FriendExcerpt 
+                    key={card.link}
+                    title={card.title}
+                    description={card.description}
+                    link={card.link}
+                    addDate={card.addDate}
+                    avatar={card.avatar}
+                />
+            )
+        }
 
         return <Layout blogBasicMetaData={this.props.blogBasicMetaData}>
             <ul className="mb-6">
