@@ -1,3 +1,5 @@
+import got from 'got';
+
 const resourceUrl = "https://blog-data-nextjs.vercel.app/api"
 // const resourceUrl = "http://localhost:3000/api";
 // const resourceUrl = "http://localhost:3001/api";
@@ -11,19 +13,33 @@ export async function getBlogBasicMetaData(): Promise< IBlogBasicMetaData > {
     return blogBasicMetaData;
 }
 
-export async function getComments(): Promise<ICommentData[]> {
-    const dataUrl = `${resourceUrl}/comments`;
-    const commentsData = await fetch(dataUrl).then(d => d.json()) as ICommentData[];
+export async function getComments(): Promise<IComment[]> {
+    const dataUrl = "https://comments-proxy.vercel.app/api/comments";
+    // const dataUrl = "https://blog-comments.exploro.one/comments";
+    const commentsData = await fetch(dataUrl).then(d => d.json()) as IComment[];
 
     return commentsData;
 }
 
-export async function getDataForCommentsPage(): Promise<[ ICommentData[], IBlogBasicMetaData ]> {
+export async function postComment(comment: IComment): Promise<IComment> {
+    const dataUrl = "https://comments-proxy.vercel.app/api/comments";
+    // const dataUrl = "https://blog-comments.exploro.one/comments";
 
-    const commentsData = await getComments();
+    const data = await fetch(dataUrl, { 
+        method: 'POST', 
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify(comment)
+    }).then(d => d.json());
+
+    return data as IComment;
+}
+
+export async function getDataForCommentsPage(): Promise<[ IComment[], IBlogBasicMetaData ]> {
+
+    const comments = await getComments();
     const blogBasicMetaData = await getBlogBasicMetaData();
 
-    return [ commentsData, blogBasicMetaData ];
+    return [ comments, blogBasicMetaData ];
 }
 
 export async function getArticlesMock(): Promise<IPostExcerptData[]> {
