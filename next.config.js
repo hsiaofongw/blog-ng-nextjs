@@ -1,7 +1,7 @@
 async function headers() {
     return [
         {
-            source: '/friends',
+            source: '/:slug',
             headers: [
                 {
                     key: 'Cache-Control',
@@ -18,24 +18,6 @@ async function headers() {
                 {
                     key: 'X-My-Feeling',
                     value: 'ha ha ha ha ha ha ha ha'
-                }
-            ]
-        },
-        {
-            source: '/',
-            headers: [
-                {
-                    key: 'Cache-Control',
-                    value: 'public,max-age=60'
-                }
-            ]
-        },
-        {
-            source: '/abouts',
-            headers: [
-                {
-                    key: 'Cache-Control',
-                    value: 'public,max-age=259200'
                 }
             ]
         }
