@@ -11,7 +11,7 @@ export class ArticleExcerpt extends React.Component<IPostExcerptData, {}> {
         const file = this.props.prettyPath || this.props.file;
         // const file = this.props.file;
 
-        return <li className="mb-4">
+        return <li className="mb-4 hover:bg-greenandgray-base1 hover:bg-opacity-40 transition duration-200">
             <a href={file}>
             <time dateTime={date} className="text-sm mb-1 text-greenandgray-base01">{date}</time>
             <h2 className="mb-1 text-xl text-greenandgray-base02">{title}</h2>
