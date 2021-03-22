@@ -7,7 +7,7 @@ async function headers() {
 
     const oneMinuteCache = {
         key: 'Cache-Control',
-        value: 'public,max-age=60',
+        value: 'public,max-age=60,stale-if-error=86400,stale-while-revalidate=60',
     }
 
     let rules = [];
