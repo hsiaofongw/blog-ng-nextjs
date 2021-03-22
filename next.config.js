@@ -5,7 +5,7 @@ async function headers() {
             headers: [
                 {
                     key: 'Cache-Control',
-                    value: 'public,max-age=259200',
+                    value: 'public,max-age=60',
                 },
                 {
                     key: 'X-My-Comment',
