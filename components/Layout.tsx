@@ -21,13 +21,17 @@ class Layout extends React.Component<ILayoutProps, {}> {
 
         return <div className="mx-auto p-4 max-w-3xl">
             {headElement}
-            <Heading1>
-                <HoverTransitionLink href="/">
-                    {this.props.blogBasicMetaData.title}
-                </HoverTransitionLink>
-            </Heading1>
-            <Menu {...this.props.blogBasicMetaData} />
-            {this.props.children}
+            <header>
+                <Heading1>
+                    <HoverTransitionLink href="/">
+                        {this.props.blogBasicMetaData.title}
+                    </HoverTransitionLink>
+                </Heading1>
+                <Menu {...this.props.blogBasicMetaData} />
+            </header>
+            <main>
+                {this.props.children}
+            </main>
         </div>;
     }
 
