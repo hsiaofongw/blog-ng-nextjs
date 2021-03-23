@@ -39,7 +39,7 @@ class Input extends React.Component<{ placeHolder: string, name: string, type?: 
 class Button extends React.Component<{ text: string, onClick: () => void }> {
     render() {
         return <button
-            className="rounded-none border-greenandgray-base01 border-2 px-1 text-greenandgray-base01"
+            className="rounded-none border-greenandgray-base01 border-2 px-1 text-greenandgray-base01 hover:bg-greenandgray-base1 hover:bg-opacity-40 transition duration-200"
             onClick={e => this.props.onClick()}
         >
             {this.props.text}
@@ -129,14 +129,14 @@ class CommentHeader extends React.Component<{ from: IVisitor, to?: IVisitor }> {
     render() {
         if (this.props.to) {
             return <div className="mb-2">
-                <span className="text-greenandgray-base02 mr-2"><a href={this.props.from.website || "#"}>{this.props.from.nickName}</a></span>
+                <span className="text-greenandgray-base02 mr-2"><a className="hover:bg-greenandgray-base1 hover:bg-opacity-40 transition duration-200" href={this.props.from.website || "#"}>{this.props.from.nickName}</a></span>
                 <span className="text-greenandgray-base01 mr-2">说给</span>
-                <span className="text-greenandgray-base02"><a href={this.props?.to?.website || "#"}>{this.props.to.nickName}</a></span>
+                <span className="text-greenandgray-base02"><a className="hover:bg-greenandgray-base1 hover:bg-opacity-40 transition duration-200" href={this.props?.to?.website || "#"}>{this.props.to.nickName}</a></span>
             </div>;
         }
         else {
             return <div className="mb-2">
-                <span className="text-greenandgray-base02 mr-2"><a href={this.props.from?.website || "#"}>{this.props.from.nickName}</a></span>
+                <span className="text-greenandgray-base02 mr-2"><a className="hover:bg-greenandgray-base1 hover:bg-opacity-40 transition duration-200" href={this.props.from?.website || "#"}>{this.props.from.nickName}</a></span>
             </div>;
         }
     }
