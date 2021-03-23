@@ -3,6 +3,9 @@ import Layout from "../../components/Layout";
 import { avatarSimplify, getGravatar } from "../../helpers/avatar";
 import { getDataForCommentsPage, postComment } from "../../helpers/blogDataDto";
 import { v4 as uuidv4 } from 'uuid';
+import { HoverTransitionButton } from '../../components/Button';
+import { HoverTransitionLink } from '../../components/Link';
+import { receiveMessageOnPort } from "worker_threads";
 
 export async function getServerSideProps(): Promise<{ props: ICommentsPageProps }> {
     const [comments, blogBasicMetaData] = await getDataForCommentsPage();
@@ -33,17 +36,6 @@ class Input extends React.Component<{ placeHolder: string, name: string, type?: 
             placeholder={this.props.placeHolder}
             className="rounded-none border-greenandgray-base01 border-b-2 outline-none p-1 mr-4 mb-2 text-greenandgray-base01"
         />;
-    }
-}
-
-class Button extends React.Component<{ text: string, onClick: () => void }> {
-    render() {
-        return <button
-            className="rounded-none border-greenandgray-base01 border-2 px-1 text-greenandgray-base01 hover:bg-greenandgray-base1 hover:bg-opacity-40 transition duration-200"
-            onClick={e => this.props.onClick()}
-        >
-            {this.props.text}
-        </button>;
     }
 }
 
@@ -119,7 +111,7 @@ class CommentForm extends React.Component<ICommentFormProps, { buttonText: strin
                 rows={8}
                 className="border-greenandgray-base01 border-2 rounded-none resize-none outline-none p-1 w-full mb-2 text-greenandgray-base01"
             />
-            <Button onClick={() => { }} text={this.state.buttonText} />
+            <HoverTransitionButton onClick={() => { }} text={this.state.buttonText} />
         </form>;
     }
 }
@@ -127,18 +119,36 @@ class CommentForm extends React.Component<ICommentFormProps, { buttonText: strin
 class CommentHeader extends React.Component<{ from: IVisitor, to?: IVisitor }> {
 
     render() {
+        const sender = this.props.from;
+        const recipient = this.props.to;
+
+        let senderHeader = (
+            <span className="text-greenandgray-base02 mr-2">
+                <HoverTransitionLink href={sender.website || "#"}>
+                    {sender.nickName}
+                </HoverTransitionLink>
+            </span>
+        );
+
+        let recipientHeader = undefined;
         if (this.props.to) {
-            return <div className="mb-2">
-                <span className="text-greenandgray-base02 mr-2"><a className="hover:bg-greenandgray-base1 hover:bg-opacity-40 transition duration-200" href={this.props.from.website || "#"}>{this.props.from.nickName}</a></span>
-                <span className="text-greenandgray-base01 mr-2">说给</span>
-                <span className="text-greenandgray-base02"><a className="hover:bg-greenandgray-base1 hover:bg-opacity-40 transition duration-200" href={this.props?.to?.website || "#"}>{this.props.to.nickName}</a></span>
-            </div>;
+            recipientHeader = (
+                <span>
+                    <span className="text-greenandgray-base01 mr-2">说给</span>
+                    <span className="text-greenandgray-base02">
+                        <HoverTransitionLink href={recipient?.website || "#"} >
+                            {recipient?.nickName}
+                        </HoverTransitionLink>
+                    </span>
+                </span>
+            );
         }
-        else {
-            return <div className="mb-2">
-                <span className="text-greenandgray-base02 mr-2"><a className="hover:bg-greenandgray-base1 hover:bg-opacity-40 transition duration-200" href={this.props.from?.website || "#"}>{this.props.from.nickName}</a></span>
-            </div>;
-        }
+
+        let commentHeaderEle = <div className="mb-2">
+            {senderHeader}{recipientHeader}
+        </div>;
+
+        return commentHeaderEle;
     }
 
 }
@@ -174,7 +184,7 @@ class Comment extends React.Component<{ comment: IComment, replies?: IComment[],
                         to={recipient} 
                     />
                     <p className="text-greenandgray-base01 mb-4">{this.props.comment.says}</p>
-                    <Button onClick={() => this.reply(this.props.comment.uuid)} text="回复" />
+                    <HoverTransitionButton onClick={() => this.reply(this.props.comment.uuid)} text="回复" />
                 </div>
                 {this.props.replies?.map(reply => <Comment visitorsIndex={this.props.visitorsIndex} key={reply.uuid} comment={reply} />)}
                 {this.props.comment.replies?.map(reply => <Comment visitorsIndex={this.props.visitorsIndex} key={reply.uuid} comment={reply} />)}
