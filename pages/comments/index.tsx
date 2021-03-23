@@ -95,6 +95,7 @@ class CommentForm extends React.Component<ICommentFormProps, { buttonText: strin
             if (uuidMatch) {
                 comment.replyTo = uuidMatch[1] || "";
                 comment.says = comment.says.replace(uuidRegex, "");
+                // comment.to = this.props.visitorsIndex[uuidMatch[1]];
             }
         }
 
@@ -125,28 +126,24 @@ class CommentForm extends React.Component<ICommentFormProps, { buttonText: strin
 
 class CommentHeader extends React.Component<{ from: IVisitor, to?: IVisitor }> {
 
-    openTab(link: string) {
-        window.open(link, "_blank");
-    }
-
     render() {
         if (this.props.to) {
             return <div className="mb-2">
-                <span onClick={e => this.openTab(this.props.from?.website || "#")} className="text-greenandgray-base02 mr-2">{this.props.from.nickName}</span>
+                <span className="text-greenandgray-base02 mr-2"><a href={this.props.from.website || "#"}>{this.props.from.nickName}</a></span>
                 <span className="text-greenandgray-base01 mr-2">说给</span>
-                <span onClick={e => this.openTab(this.props.to?.website || "#")} className="text-greenandgray-base02">{this.props.to.nickName}</span>
+                <span className="text-greenandgray-base02"><a href={this.props?.to?.website || "#"}>{this.props.to.nickName}</a></span>
             </div>;
         }
         else {
             return <div className="mb-2">
-                <span onClick={e => this.openTab(this.props.from?.website || "#")} className="text-greenandgray-base02 mr-2">{this.props.from.nickName}</span>
+                <span className="text-greenandgray-base02 mr-2"><a href={this.props.from?.website || "#"}>{this.props.from.nickName}</a></span>
             </div>;
         }
     }
 
 }
 
-class Comment extends React.Component<{ comment: IComment, replies?: IComment[] }, {}> {
+class Comment extends React.Component<{ comment: IComment, replies?: IComment[], visitorsIndex: VisitorsIndex }, {}> {
 
     reply(uuid: string) {
         const commentFormId = "commentFormInput"
@@ -158,16 +155,29 @@ class Comment extends React.Component<{ comment: IComment, replies?: IComment[] 
     }
 
     render() {
+
+        const sender = this.props.comment.from;
+        const recipient = this.props.comment.to ||
+            this.props.visitorsIndex[this.props.comment.replyTo || "#"] ||
+            undefined;
+        
+        const senderAvatar = avatarSimplify(getGravatar(this.props.comment.from.email || ""));
+
         return <div className="flex mt-8">
-            <img className="rounded-full w-10 h-10 mr-2" src={avatarSimplify(getGravatar(this.props.comment.from.email || ""))} />
+            <div className="min-w-max">
+                <a className="min-w-max" href={sender.website || "#"}><img className="rounded-full w-10 h-10 mr-2" src={senderAvatar} /></a>
+            </div>
             <div>
                 <div>
-                    <CommentHeader from={this.props.comment.from} to={this.props.comment.to} />
+                    <CommentHeader 
+                        from={sender} 
+                        to={recipient} 
+                    />
                     <p className="text-greenandgray-base01 mb-4">{this.props.comment.says}</p>
                     <Button onClick={() => this.reply(this.props.comment.uuid)} text="回复" />
                 </div>
-                {this.props.replies?.map(r => <Comment key={r.uuid} comment={r} />)}
-                {this.props.comment.replies?.map(r => <Comment key={r.uuid} comment={r} />)}
+                {this.props.replies?.map(reply => <Comment visitorsIndex={this.props.visitorsIndex} key={reply.uuid} comment={reply} />)}
+                {this.props.comment.replies?.map(reply => <Comment visitorsIndex={this.props.visitorsIndex} key={reply.uuid} comment={reply} />)}
             </div>
         </div>;
     }
@@ -212,7 +222,7 @@ class CommentPage extends React.Component<ICommentsPageProps, {}> {
 
         const rootComments = this.process(this.props.comments);
         const commentsEle = rootComments.map(comment => {
-            return <Comment key={comment.uuid} comment={comment} />;
+            return <Comment visitorsIndex={this.props.visitorsIndex} key={comment.uuid} comment={comment} />;
         });
 
         return <Layout
