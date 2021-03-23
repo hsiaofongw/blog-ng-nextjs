@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import React from "react";
+import { HoverTransitionLink } from './Link';
 import { Menu } from './Menu';
 
 class Layout extends React.Component<ILayoutProps, {}> {
@@ -19,7 +20,11 @@ class Layout extends React.Component<ILayoutProps, {}> {
 
         return <div className="mx-auto p-4 max-w-3xl">
             {headElement}
-            <h1 className="text-3xl mb-4 text-greenandgray-base02"><a href="/" className=" hover:bg-greenandgray-base1 hover:bg-opacity-40 transition duration-200">{this.props.blogBasicMetaData.title}</a></h1>
+            <h1 className="text-3xl mb-4 text-greenandgray-base02">
+                <HoverTransitionLink href="/">
+                    {this.props.blogBasicMetaData.title}
+                </HoverTransitionLink>
+            </h1>
             <Menu {...this.props.blogBasicMetaData} />
             {this.props.children}
         </div>;

@@ -5,7 +5,6 @@ import { getDataForCommentsPage, postComment } from "../../helpers/blogDataDto";
 import { v4 as uuidv4 } from 'uuid';
 import { HoverTransitionButton } from '../../components/Button';
 import { HoverTransitionLink } from '../../components/Link';
-import { receiveMessageOnPort } from "worker_threads";
 
 export async function getServerSideProps(): Promise<{ props: ICommentsPageProps }> {
     const [comments, blogBasicMetaData] = await getDataForCommentsPage();
