@@ -1,6 +1,7 @@
 import styles from '../styles/Public.module.scss';
 import React from 'react';
 import { HoverTransitionListItem } from './List';
+import { Heading2 } from './Heading';
 
 export class ArticleExcerpt extends React.Component<IPostExcerptData, {}> {
     render() {
@@ -15,9 +16,13 @@ export class ArticleExcerpt extends React.Component<IPostExcerptData, {}> {
         return (
             <HoverTransitionListItem>
                 <a href={file}>
-                    <time dateTime={date} className="text-sm mb-1 text-greenandgray-base01">{date}</time>
-                    <h2 className="mb-1 text-xl text-greenandgray-base02">{title}</h2>
-                    <p className="text-base text-greenandgray-base01">{description}</p>
+                    <article>
+                        <time dateTime={date} className="text-sm mb-1 text-greenandgray-base01">{date}</time>
+                        <Heading2>
+                            {title}
+                        </Heading2>
+                        <p className="text-base text-greenandgray-base01">{description}</p>
+                    </article>
                 </a>
             </HoverTransitionListItem>
         );
