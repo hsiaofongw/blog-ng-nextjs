@@ -4,6 +4,7 @@ const resourceUrl = "https://blog-data-nextjs.vercel.app/api"
 const commentsUrl = "https://comments-proxy.vercel.app/api/comments";
 // const commentsUrl = "http://127.0.0.1:3001/comments";
 
+
 export async function getBlogBasicMetaData(): Promise< IBlogBasicMetaData > {
     const blogBasicMetaDataUrl = `${resourceUrl}/blog-basic-metadata`;
     const blogBasicMetaData = await fetch(blogBasicMetaDataUrl).then(d => d.json()) as IBlogBasicMetaData;
