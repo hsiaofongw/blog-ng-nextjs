@@ -1,8 +1,9 @@
 import got from 'got';
 
 const resourceUrl = "https://blog-data-nextjs.vercel.app/api"
-const commentsUrl = "https://comments-proxy.vercel.app/api/comments";
+// const commentsUrl = "https://comments-proxy.vercel.app/api/comments";
 // const commentsUrl = "http://127.0.0.1:3001/comments";
+const commentsUrl = "https://blog-comments.exploro.one/comments";
 
 
 export async function getBlogBasicMetaData(): Promise< IBlogBasicMetaData > {
