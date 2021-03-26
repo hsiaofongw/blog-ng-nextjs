@@ -99,6 +99,7 @@ interface IVisitor {
     nickName: string;   // 昵称，网名
     email: string;      // 电子邮件地址
     website?: string;   // 网站网址（如果有的话）
+    avatar?: string;
 }
 
 interface IComment {

@@ -1,10 +1,8 @@
 import got from 'got';
 
 const resourceUrl = "https://blog-data-nextjs.vercel.app/api"
-// const resourceUrl = "http://localhost:3000/api";
-// const resourceUrl = "http://localhost:3001/api";
-// const resourceUrl = "https://blog-data-nextjs-git-test-hsiaofongw.vercel.app/api";
-// const resourceUrl = "https://blog-data-nextjs-5xrrk0piy-hsiaofongw.vercel.app/api";
+const commentsUrl = "https://comments-proxy.vercel.app/api/comments";
+// const commentsUrl = "http://127.0.0.1:3001/comments";
 
 export async function getBlogBasicMetaData(): Promise< IBlogBasicMetaData > {
     const blogBasicMetaDataUrl = `${resourceUrl}/blog-basic-metadata`;
@@ -14,18 +12,14 @@ export async function getBlogBasicMetaData(): Promise< IBlogBasicMetaData > {
 }
 
 export async function getComments(): Promise<IComment[]> {
-    const dataUrl = "https://comments-proxy.vercel.app/api/comments";
-    // const dataUrl = "https://blog-comments.exploro.one/comments";
-    const commentsData = await fetch(dataUrl).then(d => d.json()) as IComment[];
+    const commentsData = await fetch(commentsUrl).then(d => d.json()) as IComment[];
 
     return commentsData;
 }
 
 export async function postComment(comment: IComment): Promise<IComment> {
-    const dataUrl = "https://comments-proxy.vercel.app/api/comments";
-    // const dataUrl = "https://blog-comments.exploro.one/comments";
 
-    const data = await fetch(dataUrl, { 
+    const data = await fetch(commentsUrl, { 
         method: 'POST', 
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify(comment)

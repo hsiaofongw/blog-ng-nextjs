@@ -170,7 +170,7 @@ class Comment extends React.Component<{ comment: IComment, replies?: IComment[],
             this.props.visitorsIndex[this.props.comment.replyTo || "#"] ||
             undefined;
         
-        const senderAvatar = avatarSimplify(getGravatar(this.props.comment.from.email || ""));
+        const senderAvatar = avatarSimplify(sender.avatar || "http://gravatar.com/avatar/0");
 
         return <div className="flex mt-8">
             <div className="min-w-max">
