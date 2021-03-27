@@ -5,6 +5,7 @@ import { getDataForCommentsPage, postComment } from "../../helpers/blogDataDto";
 import { v4 as uuidv4 } from 'uuid';
 import { HoverTransitionButton } from '../../components/Button';
 import { HoverTransitionLink } from '../../components/Link';
+import { ShowDate } from "../../components/ShowDate";
 
 export async function getServerSideProps(): Promise<{ props: ICommentsPageProps }> {
     const [comments, blogBasicMetaData] = await getDataForCommentsPage();
@@ -182,7 +183,8 @@ class Comment extends React.Component<{ comment: IComment, replies?: IComment[],
                         from={sender} 
                         to={recipient} 
                     />
-                    <p className="text-greenandgray-base01 mb-4">{this.props.comment.says}</p>
+                    <p className="text-greenandgray-base01 mb-2">{this.props.comment.says}</p>
+                    <ShowDate dateTime={this.props.comment.at} />
                     <HoverTransitionButton onClick={() => this.reply(this.props.comment.uuid)} text="回复" />
                 </div>
                 {this.props.replies?.map(reply => <Comment visitorsIndex={this.props.visitorsIndex} key={reply.uuid} comment={reply} />)}
