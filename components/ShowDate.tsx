@@ -10,11 +10,21 @@ export class ShowDate extends React.Component<{dateTime: number}, {}> {
         const months = dateObj.getMonth()+1;
         const years = dateObj.getFullYear();
 
+        let hoursString = `${hours}`;
+        if (hoursString.length === 1) {
+            hoursString = `0${hours}`;
+        }
+
+        let minutesString = `${minutes}`;
+        if (minutesString.length === 1) {
+            minutesString = `0${minutes}`;
+        }
+
         const now = new Date().valueOf();
         const msPassed = now - date;
         const oneDayMS = 24 * 60 * 60 * 1000;
         if (msPassed <= oneDayMS) {
-            return `${hours}:${minutes}`;
+            return `${hoursString}:${minutesString}`;
         }
         else if (msPassed > oneDayMS && msPassed <= (2*oneDayMS)) {
             return "昨天";
