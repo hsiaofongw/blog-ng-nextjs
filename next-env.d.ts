@@ -111,9 +111,11 @@ interface IComment {
     says: string;               // 这个评论的内容
     replies?: IComment[];       // 这个评论底下的回复
     uuidOfReplies?: string[];   // 这个评论底下的每一个回复的 uuid
+    location: string;           // 这个评论是产生自哪一个页面
 }
 
 interface ICommentFormProps { 
     commentsIndex: CommentsIndex, 
-    visitorsIndex: VisitorsIndex 
+    visitorsIndex: VisitorsIndex,
+    location: string;
 };

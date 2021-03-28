@@ -5,7 +5,6 @@ const resourceUrl = "https://blog-data-nextjs.vercel.app/api"
 // const commentsUrl = "http://127.0.0.1:3001/comments";
 const commentsUrl = "https://blog-comments.exploro.one/comments";
 
-
 export async function getBlogBasicMetaData(): Promise< IBlogBasicMetaData > {
     const blogBasicMetaDataUrl = `${resourceUrl}/blog-basic-metadata`;
     const blogBasicMetaData = await fetch(blogBasicMetaDataUrl).then(d => d.json()) as IBlogBasicMetaData;
@@ -13,8 +12,11 @@ export async function getBlogBasicMetaData(): Promise< IBlogBasicMetaData > {
     return blogBasicMetaData;
 }
 
-export async function getComments(): Promise<IComment[]> {
-    const commentsData = await fetch(commentsUrl).then(d => d.json()) as IComment[];
+export async function getComments(location: string): Promise<IComment[]> {
+    let url = new URL(commentsUrl);
+    url.searchParams.append("location", location);
+
+    const commentsData = await fetch(url.toString()).then(d => d.json()) as IComment[];
 
     return commentsData;
 }
@@ -32,7 +34,7 @@ export async function postComment(comment: IComment): Promise<IComment> {
 
 export async function getDataForCommentsPage(): Promise<[ IComment[], IBlogBasicMetaData ]> {
 
-    const comments = await getComments();
+    const comments = await getComments("/comments");
     const blogBasicMetaData = await getBlogBasicMetaData();
 
     return [ comments, blogBasicMetaData ];
